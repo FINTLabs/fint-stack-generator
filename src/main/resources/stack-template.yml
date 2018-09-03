@@ -2,7 +2,7 @@ version: '3.3'
 
 services:
   provider:
-    image: dtr.rogfk.no/fint-beta/provider:PR-13
+    image: dtr.rogfk.no/fint-beta/provider
     ports:
     - '$PORT:8080'
     environment:
