@@ -40,6 +40,7 @@ class Application implements CommandLineRunner {
         stack['services']['provider']['environment']['fint.audit.mongo.databasename'] = "fint-audit-${settings['environment']}".toString()
 
         stack['services']['consumer']['image'] = "${settings['repository']}/${settings['stack']}:${settings['version']}".toString()
+        stack['services']['provider']['image'] = settings['provider']
 
         stack['services']['consumer']['environment']['fint.relations.default-base-url'] = "https://${settings['environment']}.felleskomponent.no".toString()
 
