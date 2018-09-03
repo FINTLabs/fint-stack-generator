@@ -1,0 +1,51 @@
+buildscript {
+	ext {
+		springBootVersion = '1.5.15.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'groovy'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+
+group = 'no.fint'
+sourceCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+}
+
+
+dependencies {
+	compile('org.springframework.boot:spring-boot-starter')
+	compile('org.codehaus.groovy:groovy')
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+}
+
+task copyDependencies(type: Copy) {
+    from configurations.compile
+    into "$buildDir/deps"
+    exclude '**/fint-*.jar'
+}
+
+build.dependsOn(copyDependencies)
+
+jar {
+    manifest {
+        attributes(
+                "Manifest-Version": "1.0",
+                "Main-Class": "no.fint.stack.generator.Application",
+                "Specification-Version": "${version}",
+                "Implementation-Version": "${version}",
+                "Class-Path": configurations.compile.collect { it.getName() }.join(' ')
+        )
+    }
+}
+
+bootRepackage.enabled = false

@@ -1,0 +1,77 @@
+version: '3.3'
+
+services:
+  provider:
+    image: dtr.rogfk.no/fint-beta/provider:PR-13
+    ports:
+    - '$PORT:8080'
+    environment:
+      TZ: Europe/Oslo
+      server.context-path: xxxx/provider
+      fint.events.orgIds: "health.fintlabs.no,fintlabs.no,hordaland.no,sfj.no,mrfylke.no,ffk.no,tromsfylke.no,nfk.no,oppland.no,hedmark.org,ostfoldfk.no,oslo.kommune.no,akershus.no,bfk.no,vfk.no,vaf.no,austagderfk.no,trondelagfylke.no,telemark.no,rogfk.no,fintlabs.no"
+      fint.audit.mongo.connection-string: "mongodb://fint-mongo:iehyvB6S5E5XvH9yYFK4K8MBlH4WVI2i9Mbsil2hoKMWEUIOwwGZATB41e1kJ8AN3LueuQf2lDoiTo0GSrkS4w==@fint-mongo.documents.azure.com:10255/%s?ssl=true&replicaSet=globaldb"
+      fint.audit.mongo.databasename: fint-audit-xxxx
+      fint.hazelcast.members: consumer,provider
+    deploy:
+      placement:
+        constraints:
+        - node.role == worker
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+
+  consumer:
+    image: xxxx
+    ports:
+    - "xxxx:8080"
+    environment:
+      TZ: Europe/Oslo
+      server.context-path: xxxx
+      fint.events.orgIds: "health.fintlabs.no,fintlabs.no,hordaland.no,sfj.no,mrfylke.no,ffk.no,tromsfylke.no,nfk.no,oppland.no,hedmark.org,ostfoldfk.no,oslo.kommune.no,akershus.no,bfk.no,vfk.no,vaf.no,austagderfk.no,trondelagfylke.no,telemark.no,rogfk.no,fintlabs.no"
+      fint.relations.default-base-url: "https://xxxx.felleskomponent.no"
+      fint.audit.mongo.connection-string: "mongodb://fint-mongo:iehyvB6S5E5XvH9yYFK4K8MBlH4WVI2i9Mbsil2hoKMWEUIOwwGZATB41e1kJ8AN3LueuQf2lDoiTo0GSrkS4w==@fint-mongo.documents.azure.com:10255/%s?ssl=true&replicaSet=globaldb"
+      fint.audit.mongo.databasename: fint-audit-xxxx
+      fint.hazelcast.members: consumer,provider
+      fint.cache.manager: hazelcast
+    deploy:
+      placement:
+        constraints:
+        - node.role == worker
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+
+  health-adapter:
+    image: dtr.rogfk.no/fint-beta/health-adapter:1.1.0
+    environment:
+      TZ: Europe/Oslo
+      springfox.title: "Beta Health Adapter"
+      fint.adapter.organizations: health.fintlabs.no
+      fint.adapter.sse-endpoint: https://xxxx.felleskomponent.no/xxxx/sse/%s
+      fint.adapter.status-endpoint: https://xxxx.felleskomponent.no/xxxx/provider/status
+      fint.adapter.response-endpoint: https://xxxx.felleskomponent.no/xxxx/provider/response
+      fint.oauth.enabled: "true"
+      fint.oauth.username: "health@fintlabs.no"
+      fint.oauth.password: "}!=sCArQf2tTsgdQ,8XQXxe.KHnChyu?;%N3<wwXbow\"*rKv2Ya)yt*gH]w4v%DJ"
+      fint.oauth.access-token-uri: https://idp.felleskomponent.no/nidp/oauth/nam/token
+      fint.oauth.client-id: "659a3a1c-f4df-48d9-8ca1-c01c08eaaee4"
+      fint.oauth.client-secret: "NScfTIgx76Be-qc_tz5uc80Lpnz37oErbdXYEbslIhNDuWyz-W5sCj6NTo4NFJjcbrD6VH0w6Q_SWAUuh8xkkg"
+      fint.oauth.scope: fint-client
+    deploy:
+      placement:
+        constraints:
+        - node.role == worker
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+    depends_on:
+    - provider
