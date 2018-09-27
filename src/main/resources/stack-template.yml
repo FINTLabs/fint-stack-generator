@@ -8,7 +8,7 @@ services:
     environment:
       TZ: Europe/Oslo
       server.context-path: xxxx/provider
-      fint.events.orgIds: "health.fintlabs.no,fintlabs.no,hordaland.no,sfj.no,mrfylke.no,ffk.no,tromsfylke.no,nfk.no,oppland.no,hedmark.org,ostfoldfk.no,oslo.kommune.no,akershus.no,bfk.no,vfk.no,vaf.no,austagderfk.no,trondelagfylke.no,telemark.no,rogfk.no,fintlabs.no"
+      fint.events.orgIds: "health.fintlabs.no"
       fint.audit.mongo.connection-string: "mongodb://fint-mongo:iehyvB6S5E5XvH9yYFK4K8MBlH4WVI2i9Mbsil2hoKMWEUIOwwGZATB41e1kJ8AN3LueuQf2lDoiTo0GSrkS4w==@fint-mongo.documents.azure.com:10255/%s?ssl=true&replicaSet=globaldb"
       fint.audit.mongo.databasename: fint-audit-xxxx
       fint.hazelcast.members: consumer,provider
@@ -30,7 +30,7 @@ services:
     environment:
       TZ: Europe/Oslo
       server.context-path: xxxx
-      fint.events.orgIds: "health.fintlabs.no,fintlabs.no,hordaland.no,sfj.no,mrfylke.no,ffk.no,tromsfylke.no,nfk.no,oppland.no,hedmark.org,ostfoldfk.no,oslo.kommune.no,akershus.no,bfk.no,vfk.no,vaf.no,austagderfk.no,trondelagfylke.no,telemark.no,rogfk.no,fintlabs.no"
+      fint.events.orgIds: "health.fintlabs.no"
       fint.relations.default-base-url: "https://xxxx.felleskomponent.no"
       fint.audit.mongo.connection-string: "mongodb://fint-mongo:iehyvB6S5E5XvH9yYFK4K8MBlH4WVI2i9Mbsil2hoKMWEUIOwwGZATB41e1kJ8AN3LueuQf2lDoiTo0GSrkS4w==@fint-mongo.documents.azure.com:10255/%s?ssl=true&replicaSet=globaldb"
       fint.audit.mongo.databasename: fint-audit-xxxx
