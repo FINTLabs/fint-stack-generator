@@ -68,6 +68,8 @@ services:
       fint.oauth.client-secret: "NScfTIgx76Be-qc_tz5uc80Lpnz37oErbdXYEbslIhNDuWyz-W5sCj6NTo4NFJjcbrD6VH0w6Q_SWAUuh8xkkg"
       fint.oauth.scope: fint-client
     deploy:
+      labels:
+        com.docker.ucp.access.label: /Shared
       placement:
         constraints:
         - node.role == worker
