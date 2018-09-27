@@ -13,6 +13,8 @@ services:
       fint.audit.mongo.databasename: fint-audit-xxxx
       fint.hazelcast.members: consumer,provider
     deploy:
+      labels:
+        com.docker.ucp.access.label: /Shared
       placement:
         constraints:
         - node.role == worker
@@ -37,6 +39,8 @@ services:
       fint.hazelcast.members: consumer,provider
       fint.cache.manager: hazelcast
     deploy:
+      labels:
+        com.docker.ucp.access.label: /Shared
       placement:
         constraints:
         - node.role == worker
