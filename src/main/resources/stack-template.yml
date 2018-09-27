@@ -13,11 +13,10 @@ services:
       fint.audit.mongo.databasename: fint-audit-xxxx
       fint.hazelcast.members: consumer,provider
     deploy:
-      labels:
-        com.docker.ucp.access.label: /Shared
       placement:
         constraints:
         - node.role == worker
+        - node.labels.com.docker.ucp.collection == shared
       replicas: 1
       restart_policy:
         condition: on-failure
@@ -39,11 +38,10 @@ services:
       fint.hazelcast.members: consumer,provider
       fint.cache.manager: hazelcast
     deploy:
-      labels:
-        com.docker.ucp.access.label: /Shared
       placement:
         constraints:
         - node.role == worker
+        - node.labels.com.docker.ucp.collection == shared
       replicas: 1
       restart_policy:
         condition: on-failure
@@ -68,11 +66,10 @@ services:
       fint.oauth.client-secret: "NScfTIgx76Be-qc_tz5uc80Lpnz37oErbdXYEbslIhNDuWyz-W5sCj6NTo4NFJjcbrD6VH0w6Q_SWAUuh8xkkg"
       fint.oauth.scope: fint-client
     deploy:
-      labels:
-        com.docker.ucp.access.label: /Shared
       placement:
         constraints:
         - node.role == worker
+        - node.labels.com.docker.ucp.collection == shared
       replicas: 1
       restart_policy:
         condition: on-failure
