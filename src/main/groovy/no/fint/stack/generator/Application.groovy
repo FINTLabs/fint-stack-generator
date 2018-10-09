@@ -55,6 +55,7 @@ class Application implements CommandLineRunner {
 
         stack['services']['consumer']['environment']['fint.events.orgIds'] = settings['resources']
         stack['services']['provider']['environment']['fint.events.orgIds'] = settings['resources']
+        stack['services']['provider']['environment']['fint.provider.assets.endpoint'] = settings['assets']
 
         stack['services']['consumer']['image'] = "${settings['repository']}/${settings['stack']}:${settings['version']}".toString()
         stack['services']['provider']['image'] = settings['provider']
