@@ -19,12 +19,12 @@ class Application implements CommandLineRunner {
     @Value('${outdir:./out/}')
     private Path outdir
 
-	static void main(String[] args) {
-		SpringApplication.run Application, args
-	}
+    static void main(String[] args) {
+        SpringApplication.run Application, args
+    }
 
-	@Override
-	void run(String... args) throws Exception {
+    @Override
+    void run(String... args) throws Exception {
 
         if (args.length == 0) {
             System.err.println("Arguments: input.yml [input2.yml] ...")
@@ -37,28 +37,36 @@ class Application implements CommandLineRunner {
 
     }
 
-    void generate(String input) throws  Exception {
+    String env(String s) {
+        switch (s) {
+            case "api": return ''
+            default: return "-${s}"
+        }
+    }
+
+    void generate(String input) throws Exception {
+
 
         def dumperOptions = new DumperOptions()
         dumperOptions.defaultFlowStyle = DumperOptions.FlowStyle.BLOCK
 
         def yaml = new Yaml(dumperOptions)
 
-		def stack = yaml.load new ClassPathResource('stack-template.yml').inputStream
+        def stack = yaml.load new ClassPathResource('stack-template.yml').inputStream
 
         def settings = yaml.load Files.newBufferedReader(Paths.get(input))
 
-        Path output = outdir.resolve("${settings['stack']}-${settings['environment']}.yml")
+        Path output = outdir.resolve("${settings['stack']}${env(settings['environment'])}.yml")
         System.out.printf("Generating %s from %s ...\n", output, input)
 
         stack['services']['provider']['ports'][0] = "${settings['port']}:8080".toString()
-        stack['services']['consumer']['ports'][0] = "${settings['port']+1}:8080".toString()
+        stack['services']['consumer']['ports'][0] = "${settings['port'] + 1}:8080".toString()
 
         stack['services']['consumer']['environment']['server.context-path'] = settings['uri']
         stack['services']['provider']['environment']['server.context-path'] = "${settings['uri']}/provider".toString()
 
-        stack['services']['consumer']['environment']['fint.audit.mongo.databasename'] = "fint-audit-${settings['environment']}".toString()
-        stack['services']['provider']['environment']['fint.audit.mongo.databasename'] = "fint-audit-${settings['environment']}".toString()
+        stack['services']['consumer']['environment']['fint.audit.mongo.databasename'] = "fint-audit${env(settings['environment'])}".toString()
+        stack['services']['provider']['environment']['fint.audit.mongo.databasename'] = "fint-audit${env(settings['environment'])}".toString()
 
         if (settings['resources']) {
             stack['services']['consumer']['environment']['fint.events.orgIds'] = settings['resources']
@@ -78,5 +86,6 @@ class Application implements CommandLineRunner {
         stack['services']['health-adapter']['environment']['fint.adapter.response-endpoint'] = "https://${settings['environment']}.felleskomponent.no${settings['uri']}/provider/response".toString()
 
         yaml.dump(stack, Files.newBufferedWriter(output))
-	}
+    }
+
 }
