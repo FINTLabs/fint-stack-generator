@@ -9,7 +9,7 @@ services:
       TZ: Europe/Oslo
       server.context-path: xxxx/provider
       fint.events.orgIds: "health.fintlabs.no"
-      fint.audit.mongo.connection-string: "mongodb://fint-mongo:iehyvB6S5E5XvH9yYFK4K8MBlH4WVI2i9Mbsil2hoKMWEUIOwwGZATB41e1kJ8AN3LueuQf2lDoiTo0GSrkS4w==@fint-mongo.documents.azure.com:10255/%s?ssl=true&replicaSet=globaldb"
+      fint.audit.mongo.connection-string: "mongodb://fint-mongo:TXpcYKfcL7lCavyhQNqWRiR2T7xKa58mgdOGGJHnlinxYASa8fEtxm48ivUSqzjSzs6kEbyQPajXeFs508sblg==@fint-mongo.documents.azure.com:10255/%s?ssl=true&replicaSet=globaldb"
       fint.audit.mongo.databasename: fint-audit-xxxx
       fint.hazelcast.members: consumer,provider
     deploy:
@@ -33,7 +33,7 @@ services:
       server.context-path: xxxx
       fint.events.orgIds: "health.fintlabs.no"
       fint.relations.default-base-url: "https://xxxx.felleskomponent.no"
-      fint.audit.mongo.connection-string: "mongodb://fint-mongo:iehyvB6S5E5XvH9yYFK4K8MBlH4WVI2i9Mbsil2hoKMWEUIOwwGZATB41e1kJ8AN3LueuQf2lDoiTo0GSrkS4w==@fint-mongo.documents.azure.com:10255/%s?ssl=true&replicaSet=globaldb"
+      fint.audit.mongo.connection-string: "mongodb://fint-mongo:TXpcYKfcL7lCavyhQNqWRiR2T7xKa58mgdOGGJHnlinxYASa8fEtxm48ivUSqzjSzs6kEbyQPajXeFs508sblg==@fint-mongo.documents.azure.com:10255/%s?ssl=true&replicaSet=globaldb"
       fint.audit.mongo.databasename: fint-audit-xxxx
       fint.hazelcast.members: consumer,provider
       fint.cache.manager: hazelcast
