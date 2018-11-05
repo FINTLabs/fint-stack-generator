@@ -14,27 +14,13 @@ import java.nio.file.Paths
 
 
 @SpringBootApplication
-class Application implements CommandLineRunner {
+class Application {
 
     @Value('${outdir:./out/}')
     private Path outdir
 
     static void main(String[] args) {
         SpringApplication.run Application, args
-    }
-
-    @Override
-    void run(String... args) throws Exception {
-
-        if (args.length == 0) {
-            System.err.println("Arguments: input.yml [input2.yml] ...")
-            return
-        }
-
-        for (int i = 0; i < args.length; i++) {
-            generate(args[i])
-        }
-
     }
 
     String env(String s) {

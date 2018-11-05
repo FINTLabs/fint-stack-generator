@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>FINT Stack Generator</title>
+    <style type="text/css">
+        input[type=submit] {
+            width: 40ex;
+        }
+        input {
+            width: 80ex;
+        }
+        textarea {
+            width: 80%;
+            height: 60ex;
+        }
+    </style>
+</head>
+<body>
+<form method="post" th:object="${stack}">
+    <table>
+        <tr>
+            <td>Environment</td>
+            <td>
+                <input type="text" th:field="*{environment}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>Stack</td>
+            <td>
+                <input type="text" th:field="*{stack}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>URI</td>
+            <td>
+                <input type="text" th:field="*{uri}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>Port</td>
+            <td>
+                <input type="number" th:field="*{port}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>Consumer</td>
+            <td>
+                <input type="text" th:field="*{consumer}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>Provider</td>
+            <td>
+                <input type="text" th:field="*{provider}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>Assets</td>
+            <td>
+                <input type="url" th:field="*{assets}"/>
+            </td>
+        </tr>
+    </table>
+    <input type="submit"/>
+</form>
+<textarea th:text="${result}"></textarea>
+</body>
+</html>
