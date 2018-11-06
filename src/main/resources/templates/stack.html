@@ -21,7 +21,10 @@
         <tr>
             <td>Environment</td>
             <td>
-                <input type="text" th:field="*{environment}"/>
+                <select th:field="*{environment}">
+                    <option value="beta">beta</option>
+                    <option value="api">api</option>
+                </select>
             </td>
         </tr>
         <tr>
@@ -39,19 +42,33 @@
         <tr>
             <td>Port</td>
             <td>
-                <input type="number" th:field="*{port}"/>
+                <input type="number" min="8000" max="9999" th:field="*{port}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>Repository</td>
+            <td>
+                <select th:field="*{repository}">
+                    <option value="beta">beta</option>
+                    <option value="prod">prod</option>
+                </select>
             </td>
         </tr>
         <tr>
             <td>Consumer</td>
             <td>
-                <input type="text" th:field="*{consumer}"/>
+                <select th:field="*{consumer}">
+                    <option th:each="item : ${consumers}" th:value="${item}" th:text="${item}">consumer</option>
+                </select>
+                <input type="text" th:field="*{version}"/>
             </td>
         </tr>
         <tr>
             <td>Provider</td>
             <td>
-                <input type="text" th:field="*{provider}"/>
+                <select th:field="*{provider}">
+                    <option th:each="item : ${providers}" th:value="${item}" th:text="${item}">provider</option>
+                </select>
             </td>
         </tr>
         <tr>

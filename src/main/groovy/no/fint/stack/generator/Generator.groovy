@@ -45,11 +45,11 @@ class Generator {
         }
 
         if (model.consumer) {
-            stack['services']['consumer']['image'] = model.consumer
+            stack['services']['consumer']['image'] = "dtr.fintlabs.no/${model.consumer}:${model.version}".toString()
         } /*else {
             stack['services']['consumer']['image'] = "${settings['repository']}/consumer-${settings['stack']}:${settings['version']}".toString()
         }*/
-        stack['services']['provider']['image'] = model.provider
+        stack['services']['provider']['image'] = "dtr.fintlabs.no/${model.repository}/provider/${model.provider}".toString()
 
         stack['services']['consumer']['environment']['fint.relations.default-base-url'] = "https://${model.environment}.felleskomponent.no".toString()
 

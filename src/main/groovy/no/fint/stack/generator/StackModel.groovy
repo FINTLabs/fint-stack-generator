@@ -5,7 +5,9 @@ class StackModel {
     String stack
     String uri
     int port
+    String repository
     String consumer
+    String version
     String provider
     URI assets
 }

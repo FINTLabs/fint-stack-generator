@@ -1,15 +1,19 @@
 version: '3.3'
-
+secrets:
+  fint-audit-mongo:
+    external: true
 services:
   provider:
     image: dtr.rogfk.no/fint-beta/provider
+    secrets:
+    - source: fint-audit-mongo
+      target: fint.audit.mongo.connection-string
     ports:
     - '$PORT:8080'
     environment:
       TZ: Europe/Oslo
       server.context-path: xxxx/provider
       fint.events.orgIds: "health.fintlabs.no"
-      fint.audit.mongo.connection-string: /run/secrets/fint-mongo
       fint.audit.mongo.databasename: fint-audit-xxxx
       fint.hazelcast.members: consumer,provider
     deploy:
@@ -26,6 +30,9 @@ services:
 
   consumer:
     image: xxxx
+    secrets:
+    - source: fint-audit-mongo
+      target: fint.audit.mongo.connection-string
     ports:
     - "xxxx:8080"
     environment:
@@ -33,7 +40,6 @@ services:
       server.context-path: xxxx
       fint.events.orgIds: "health.fintlabs.no"
       fint.relations.default-base-url: "https://xxxx.felleskomponent.no"
-      fint.audit.mongo.connection-string: /run/secrets/fint-mongo
       fint.audit.mongo.databasename: fint-audit-xxxx
       fint.hazelcast.members: consumer,provider
       fint.cache.manager: hazelcast

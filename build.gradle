@@ -1,6 +1,6 @@
 buildscript {
 	ext {
-		springBootVersion = '1.5.15.RELEASE'
+		springBootVersion = '1.5.17.RELEASE'
 	}
 	repositories {
 		mavenCentral()
@@ -27,6 +27,10 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
 	compile('org.codehaus.groovy:groovy')
+    compile('org.codehaus.groovy:groovy-json')
+
+	testCompile('org.spockframework:spock-spring:1.1-groovy-2.4')
+	testCompile('org.spockframework:spock-core:1.1-groovy-2.4')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 
