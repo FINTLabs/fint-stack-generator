@@ -56,10 +56,10 @@ services:
         window: 120s
 
   health-adapter:
-    image: dtr.rogfk.no/fint-beta/health-adapter:1.1.0
+    image: dtr.fintlabs.no/beta/health-adapter:1.2.1
     environment:
       TZ: Europe/Oslo
-      springfox.title: "Beta Health Adapter"
+      springfox.title: "Health Adapter"
       fint.adapter.organizations: health.fintlabs.no
       fint.adapter.sse-endpoint: https://xxxx.felleskomponent.no/xxxx/sse/%s
       fint.adapter.status-endpoint: https://xxxx.felleskomponent.no/xxxx/provider/status

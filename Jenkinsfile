@@ -29,12 +29,17 @@ pipeline {
                 }
             }
         }
-        stage('Publish Tag') {
-            when { buildingTag() }
+        stage('Publish Version') {
+            when {
+                tag pattern: "v\\d+\\.\\d+\\.\\d+(-\\w+-\\d+)?", comparator: "REGEXP"
+            }
             steps {
+                script {
+                    VERSION = TAG_NAME[1..-1]
+                }
+                sh "docker tag ${GIT_COMMIT} dtr.fintlabs.no/beta/stack-generator:${VERSION}"
                 withDockerRegistry([credentialsId: 'dtr-fintlabs-no', url: 'https://dtr.fintlabs.no']) {
-                    sh "docker tag ${GIT_COMMIT} dtr.fintlabs.no/beta/stack-generator:${TAG_NAME}"
-                    sh "docker push 'dtr.fintlabs.no/beta/stack-generator:${TAG_NAME}'"
+                    sh "docker push dtr.fintlabs.no/beta/stack-generator:${VERSION}"
                 }
             }
         }
