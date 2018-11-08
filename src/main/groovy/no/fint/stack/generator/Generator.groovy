@@ -45,7 +45,7 @@ class Generator {
         }
 
         stack['services']['consumer']['image'] = "dtr.fintlabs.no/${model.repository}/${model.consumer}:${model.version}".toString()
-        stack['services']['provider']['image'] = "dtr.fintlabs.no/${model.repository}/provider/${model.provider}".toString()
+        stack['services']['provider']['image'] = "dtr.fintlabs.no/${model.repository}/provider:${model.provider}".toString()
 
         stack['services']['consumer']['environment']['fint.relations.default-base-url'] = "https://${model.environment}.felleskomponent.no".toString()
 

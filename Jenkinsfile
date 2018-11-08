@@ -15,6 +15,9 @@ pipeline {
                     sh "docker tag ${GIT_COMMIT} dtr.fintlabs.no/beta/stack-generator:latest"
                     sh "docker push 'dtr.fintlabs.no/beta/stack-generator:latest'"
                 }
+                withDockerServer([credentialsId: "ucp-fintlabs-jenkins-bundle", uri: "tcp://ucp.fintlabs.no:443"]) {
+                    sh "docker service update stack-generator_stacks --image dtr.fintlabs.no/beta/stack-generator:latest --detach=false"
+                }
             }
         }
         stage('Publish PR') {
