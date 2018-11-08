@@ -15,15 +15,13 @@ class RepoService {
         def slurper = new JsonSlurper()
         def result = restTemplate.getForObject('/api/v0/index/dockersearch?q={query}', String, query)
         def data = slurper.parseText(result)
-        println(data)
-        return data.results.findAll { it.name.startsWith(owner) }.collect { it.name }
+        return data.results.findAll { it.name.startsWith(owner) }.collect { it.name - "$owner/" }
     }
 
     String[] tags(String namespace, String reponame) {
         def slurper = new JsonSlurper()
         def result = restTemplate.getForObject('/api/v0/repositories/{namespace}/{reponame}/tags', String, namespace, reponame)
         def data = slurper.parseText(result)
-        println(data)
         return data.collect { it.name }
     }
 }

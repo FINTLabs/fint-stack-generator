@@ -15,5 +15,12 @@ class RepoServiceSpec extends Specification {
         then:
         result
         result.size() > 0
+
+        when:
+        def version = repoService.tags('beta', result[0])
+
+        then:
+        version
+        version.size() > 0
     }
 }

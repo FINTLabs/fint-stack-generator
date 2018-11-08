@@ -14,6 +14,8 @@
             height: 60ex;
         }
     </style>
+    <script src="api.js" type="application/javascript">
+    </script>
 </head>
 <body>
 <form method="post" th:object="${stack}">
@@ -48,7 +50,7 @@
         <tr>
             <td>Repository</td>
             <td>
-                <select th:field="*{repository}">
+                <select id="repository" th:field="*{repository}" onchange="refetch()">
                     <option value="beta">beta</option>
                     <option value="prod">prod</option>
                 </select>
@@ -57,16 +59,21 @@
         <tr>
             <td>Consumer</td>
             <td>
-                <select th:field="*{consumer}">
+                <select id="consumer" th:field="*{consumer}" onchange="fetchTags()">
+                    <option value="">&lt;...&gt;</option>
                     <option th:each="item : ${consumers}" th:value="${item}" th:text="${item}">consumer</option>
                 </select>
-                <input type="text" th:field="*{version}"/>
+                <select id="version" th:field="*{version}">
+                    <option value="">&lt;...&gt;</option>
+                    <option th:each="item : ${versions}" th:value="${item}" th:text="${item}">latest</option>
+                </select>
             </td>
         </tr>
         <tr>
             <td>Provider</td>
             <td>
-                <select th:field="*{provider}">
+                <select id="provider" th:field="*{provider}">
+                    <option value="">&lt;...&gt;</option>
                     <option th:each="item : ${providers}" th:value="${item}" th:text="${item}">provider</option>
                 </select>
             </td>
@@ -78,7 +85,7 @@
             </td>
         </tr>
     </table>
-    <input type="submit"/>
+    <input type="submit" value="Generate Stack!"/>
 </form>
 <textarea th:text="${result}"></textarea>
 </body>

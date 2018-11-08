@@ -1,7 +1,6 @@
 package no.fint.stack.generator
 
 import org.springframework.beans.factory.annotation.Value
-import org.springframework.boot.CommandLineRunner
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.core.io.ClassPathResource
@@ -11,7 +10,6 @@ import org.yaml.snakeyaml.Yaml
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
-
 
 @SpringBootApplication
 class Application {
