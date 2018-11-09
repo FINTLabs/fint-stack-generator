@@ -1,0 +1,117 @@
+body {
+    margin: 16px;
+    padding: 0;
+    font-family: sans-serif;
+    background-color: #b71c1c;
+    color: #fff;
+    font-size: large;
+    font-weight: bold;
+}
+
+table {
+    width: 80%;
+}
+th, td {
+    padding: 8px;
+}
+input[type=text], input[type=number], input[type=url] {
+    padding: 8px;
+    border: none;
+    border-radius: 4px;
+    height: 24px;
+    background-color: #fff;
+    font-size: large;
+}
+input[type=submit] {
+    background-color: #66bb6a;
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: large;
+    margin-top: 16px;
+    margin-bottom: 16px;
+}
+select {
+    padding: 8px;
+    border: none;
+    border-radius: 4px;
+    background-color: #f1f1f1;
+    font-size: large;
+    height: 34px;
+    box-sizing: content-box;
+}
+
+textarea {
+    width: 100%;
+    height: 120ex;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 0px;
+    border-radius: 4px;
+    background-color: #000;
+    resize: none;
+    color: #66bb6a;
+    font-size: 0.85em;
+    font-family: "Courier New", serif;
+    font-weight: bold;
+}
+
+
+#consumer {
+    margin-right: 16px;
+}
+
+.logo {
+    width: 10%;
+    height: 10%;
+}
+
+.logo-container {
+    display: flex;
+    justify-content: flex-start;
+    border-bottom: white solid 1px;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.buttons input {
+    margin-right: 16px;
+}
+
+#message {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.flex-outer li {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.flex-outer > li > label,
+.flex-outer li p {
+    flex: 1 0 120px;
+    max-width: 220px;
+}
+
+.flex-outer > li > label + * {
+    flex: 1 0 220px;
+}
+
+.flex-outer li {
+    margin-left: auto;
+    padding: 8px 16px;
+    border: none;
+    text-transform: uppercase;
+    letter-spacing: .09em;
+    border-radius: 2px;
+}
+

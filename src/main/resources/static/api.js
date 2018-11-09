@@ -59,3 +59,18 @@ function updateConfiguration(configurations) {
         document.getElementById("assets").value = config.assetPath;
     }
 }
+
+function copyToClipboard() {
+    /* Get the text field */
+    var copyText = document.getElementById("stack-file");
+
+    /* Select the text field */
+    copyText.select();
+
+    /* Copy the text inside the text field */
+    document.execCommand("copy");
+
+    var message = document.getElementById("message");
+    message.innerHTML = "Stacken ble kopiert til utklippstavlen";
+
+}

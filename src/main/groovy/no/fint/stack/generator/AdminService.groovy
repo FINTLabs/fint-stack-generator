@@ -19,6 +19,6 @@ class AdminService {
     List<Stack> getConfigurations() {
         def slurper = new JsonSlurper()
         def result = restOperations.getForObject('/api/components/configurations', String)
-        slurper.parseText(result).collect { it.assetPath = config.adminuri + it.assetPath; it }.sort { a,b -> a.name.compareTo(b.name) }
+        slurper.parseText(result).collect { it.assetPath = config.adminuri + it.assetPath; it }.sort { a, b -> a.name.compareTo(b.name) } as List<Stack>
     }
 }

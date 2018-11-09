@@ -2,101 +2,95 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>FINT Stack Generator</title>
-    <style type="text/css">
-        input[type=submit] {
-            width: 40ex;
-        }
-        input {
-            width: 80ex;
-        }
-        textarea {
-            width: 80%;
-            height: 60ex;
-        }
-    </style>
+    <link th:href="@{main.css}" href="main.css" rel="stylesheet" type="text/css"/>
     <script src="api.js" type="application/javascript">
     </script>
     <script th:inline="javascript">
-/*<![CDATA[*/
+        /*<![CDATA[*/
 
-    var configurations = /*[[${configurations}]]*/ [];
+        var configurations = /*[[${configurations}]]*/ [];
 
-/*]]>*/
+        /*]]>*/
     </script>
 </head>
 <body>
+<div class="logo-container">
+    <img th:src="@{fint.svg}" src="fint.svg" alt="logo" class="logo"/>
+</div>
 <form method="post" th:object="${stack}">
-    <table>
-        <tr>
-            <td>Environment</td>
-            <td>
-                <select th:field="*{environment}">
-                    <option value="beta">beta</option>
-                    <option value="api">api</option>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <td>Stack</td>
-            <td>
-                <input list="configurations" id="stack" th:field="*{stack}" onchange="updateConfiguration(configurations)"/>
-                <datalist id="configurations">
-                    <option th:each="item : ${configurations}" th:value="${item.name}"></option>
-                </datalist>
-            </td>
-        </tr>
-        <tr>
-            <td>URI</td>
-            <td>
-                <input id="uri" type="text" th:field="*{uri}"/>
-            </td>
-        </tr>
-        <tr>
-            <td>Port</td>
-            <td>
-                <input id="port" type="number" min="8000" max="9999" th:field="*{port}"/>
-            </td>
-        </tr>
-        <tr>
-            <td>Repository</td>
-            <td>
-                <select id="repository" th:field="*{repository}" onchange="refetch()">
-                    <option value="beta">beta</option>
-                    <option value="prod">prod</option>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <td>Consumer</td>
-            <td>
-                <select id="consumer" th:field="*{consumer}" onchange="fetchTags()">
-                    <option value="">&lt;...&gt;</option>
-                    <option th:each="item : ${consumers}" th:value="${item}" th:text="${item}">consumer</option>
-                </select>
-                <select id="version" th:field="*{version}">
-                    <option value="">&lt;...&gt;</option>
-                    <option th:each="item : ${versions}" th:value="${item}" th:text="${item}">latest</option>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <td>Provider</td>
-            <td>
-                <select id="provider" th:field="*{provider}">
-                    <option value="">&lt;...&gt;</option>
-                    <option th:each="item : ${providers}" th:value="${item}" th:text="${item}">provider</option>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <td>Assets</td>
-            <td>
-                <input id="assets" type="url" th:field="*{assets}"/>
-            </td>
-        </tr>
-    </table>
-    <input type="submit" value="Generate Stack!"/>
+
+    <ul class="flex-outer">
+        <li>
+            <label for="environment">Environment</label>
+            <select id="environment" th:field="*{environment}">
+                <option value="beta">beta</option>
+                <option value="api">api</option>
+            </select>
+        </li>
+
+        <li>
+            <label for="stack">Stack</label>
+            <select list="configurations" id="stack" th:field="*{stack}" onchange="updateConfiguration(configurations)">
+                <option value=""></option>
+                <option th:each="item : ${configurations}" th:value="${item.name}" th:text="${item.name}"></option>
+            </select>
+        </li>
+
+        <li>
+            <label for="uri">URI</label>
+            <input id="uri" type="text" th:field="*{uri}"/>
+        </li>
+
+        <li>
+            <label for="port">Port</label>
+            <input id="port" type="number" min="8000" max="9999" th:field="*{port}"/>
+        </li>
+
+        <li>
+            <label for="repository">Repository</label>
+            <select id="repository" th:field="*{repository}" onchange="refetch()">
+                <option value="beta">beta</option>
+                <option value="prod">prod</option>
+            </select>
+        </li>
+
+
+        <li>
+            <label for="consumer">Consumer</label>
+            <select id="consumer" th:field="*{consumer}" onchange="fetchTags()">
+                <option value=""></option>
+                <option th:each="item : ${consumers}" th:value="${item}" th:text="${item}">consumer</option>
+            </select>
+            <select id="version" th:field="*{version}">
+                <option value=""></option>
+                <option th:each="item : ${versions}" th:value="${item}" th:text="${item}">latest</option>
+            </select>
+        </li>
+
+
+        <li>
+            <label for="provider">Provider</label>
+            <select id="provider" th:field="*{provider}">
+                <option value=""></option>
+                <option th:each="item : ${providers}" th:value="${item}" th:text="${item}">provider</option>
+            </select>
+        </li>
+
+        <li>
+            <label for="assets">Assets</label>
+            <input id="assets" type="url" th:field="*{assets}"/>
+        </li>
+
+    </ul>
+
+    <div class="buttons">
+        <input type="submit" value="Generate Stack!"/>
+        <input type="submit" value="Copy to clipboard" onclick="copyToClipboard()"/>
+        <div id="message"></div>
+    </div>
+
+
 </form>
-<textarea th:text="${result}"></textarea>
+<textarea id="stack-file" th:text="${result}"></textarea>
 </body>
 </html>
