@@ -1,7 +1,8 @@
 package no.fint.stack.generator
 
 class Stack {
-    String uri
+    String name
     int port
-    URI assets
+    String path
+    URI assetPath
 }

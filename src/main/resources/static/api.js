@@ -47,3 +47,15 @@ function fetchTags() {
     .then(response => response.json())
     .then(data => updateOptions(version, data));
 }
+
+function updateConfiguration(configurations) {
+    console.log("updateConfiguration called ...");
+    var stack = document.getElementById("stack").value;
+    var config = configurations.find(it => it.name === stack);
+    if (config !== undefined) {
+        console.log(config);
+        document.getElementById("uri").value = config.path;
+        document.getElementById("port").value = config.port;
+        document.getElementById("assets").value = config.assetPath;
+    }
+}

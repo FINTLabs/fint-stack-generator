@@ -1,14 +1,10 @@
 fint:
+  admin:
+    uri: https://admin-beta.fintlabs.no
   dtr:
     username: jenkins
     apikey: 6eecebf9-f945-4354-9b85-f402a0dd96c6
     uri: https://dtr.fintlabs.no
-  stack:
-    definitions:
-      utdanning-elev:
-        uri: /utdanning/elev
-        port: 8250
-        assets: https://admin.fintlabs.no/api/components/assets/utdanning_elev
 
 server:
   context-path: /stacks

@@ -2,6 +2,7 @@ package no.fint.stack.generator
 
 import groovy.json.JsonSlurper
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.stereotype.Service
 import org.springframework.web.client.RestOperations
 
@@ -9,6 +10,7 @@ import org.springframework.web.client.RestOperations
 class RepoService {
 
     @Autowired
+    @Qualifier("dtr")
     RestOperations restTemplate
 
     String[] search(String owner, String query) {

@@ -20,11 +20,12 @@ class StackController {
     RepoService repoService
 
     @Autowired
-    StackDefinitions stackDefinitions
+    AdminService adminService
 
     @GetMapping
     String form(Model model) {
         model.addAttribute('stack', new StackModel())
+        model.addAttribute('configurations', adminService.configurations)
         model.addAttribute('consumers', repoService.search('beta', 'consumer'))
         model.addAttribute('providers', repoService.tags('beta', 'provider'))
         return 'stack'
@@ -33,6 +34,7 @@ class StackController {
     @PostMapping
     String stack(Model model, @ModelAttribute StackModel body) {
         model.addAttribute('stack', body)
+        model.addAttribute('configurations', adminService.configurations)
         model.addAttribute('consumers', repoService.search(body.repository, 'consumer'))
         model.addAttribute('versions', repoService.tags(body.repository, body.consumer))
         model.addAttribute('providers', repoService.tags(body.repository, 'provider'))

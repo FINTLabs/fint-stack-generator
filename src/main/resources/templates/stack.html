@@ -16,6 +16,13 @@
     </style>
     <script src="api.js" type="application/javascript">
     </script>
+    <script th:inline="javascript">
+/*<![CDATA[*/
+
+    var configurations = /*[[${configurations}]]*/ [];
+
+/*]]>*/
+    </script>
 </head>
 <body>
 <form method="post" th:object="${stack}">
@@ -32,19 +39,22 @@
         <tr>
             <td>Stack</td>
             <td>
-                <input type="text" th:field="*{stack}"/>
+                <input list="configurations" id="stack" th:field="*{stack}" onchange="updateConfiguration(configurations)"/>
+                <datalist id="configurations">
+                    <option th:each="item : ${configurations}" th:value="${item.name}"></option>
+                </datalist>
             </td>
         </tr>
         <tr>
             <td>URI</td>
             <td>
-                <input type="text" th:field="*{uri}"/>
+                <input id="uri" type="text" th:field="*{uri}"/>
             </td>
         </tr>
         <tr>
             <td>Port</td>
             <td>
-                <input type="number" min="8000" max="9999" th:field="*{port}"/>
+                <input id="port" type="number" min="8000" max="9999" th:field="*{port}"/>
             </td>
         </tr>
         <tr>
@@ -81,7 +91,7 @@
         <tr>
             <td>Assets</td>
             <td>
-                <input type="url" th:field="*{assets}"/>
+                <input id="assets" type="url" th:field="*{assets}"/>
             </td>
         </tr>
     </table>

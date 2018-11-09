@@ -1,5 +1,6 @@
 package no.fint.stack.generator
 
+import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.web.client.RestTemplateBuilder
 import org.springframework.context.annotation.Bean
@@ -9,6 +10,9 @@ import org.springframework.web.client.RestOperations
 
 @Configuration
 class Config {
+    @Value('${fint.admin.uri}')
+    String adminuri
+
     @Value('${fint.dtr.username}')
     String username
 
@@ -16,13 +20,23 @@ class Config {
     String apikey
 
     @Value('${fint.dtr.uri}')
-    String rooturi
+    String dtruri
 
     @Bean
-    RestOperations rest(RestTemplateBuilder builder) {
+    @Qualifier('dtr')
+    RestOperations restForDtr(RestTemplateBuilder builder) {
         return builder
                 .basicAuthorization(username, apikey)
-                .rootUri(rooturi)
+                .rootUri(dtruri)
+                .additionalInterceptors({ request, body, execution -> println(request.URI); execution.execute(request, body) } as ClientHttpRequestInterceptor)
+                .build()
+    }
+
+    @Bean
+    @Qualifier('admin')
+    RestOperations restForAdmin(RestTemplateBuilder builder) {
+        return builder
+                .rootUri(adminuri)
                 .additionalInterceptors({ request, body, execution -> println(request.URI); execution.execute(request, body) } as ClientHttpRequestInterceptor)
                 .build()
     }

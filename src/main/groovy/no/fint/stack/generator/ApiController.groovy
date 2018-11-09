@@ -15,18 +15,26 @@ class ApiController {
     @Autowired
     private Generator generator
 
+    @Autowired
+    private AdminService adminService
+
     @PostMapping(path = '/generate', produces = 'text/x-yaml', consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     ResponseEntity generate(@RequestBody StackModel model) {
-        return ResponseEntity.ok(generator.generate(model))
+        ResponseEntity.ok(generator.generate(model))
     }
 
     @GetMapping('/tags/{namespace}/{reponame}')
     ResponseEntity getTags(@PathVariable String namespace, @PathVariable String reponame) {
-        return ResponseEntity.ok(repoService.tags(namespace, reponame))
+        ResponseEntity.ok(repoService.tags(namespace, reponame))
     }
 
     @GetMapping('/search/{namespace}/{query}')
     ResponseEntity search(@PathVariable String namespace, @PathVariable String query) {
-        return ResponseEntity.ok(repoService.search(namespace, query))
+        ResponseEntity.ok(repoService.search(namespace, query))
+    }
+
+    @GetMapping('/configurations')
+    ResponseEntity getConfigurations() {
+        ResponseEntity.ok(adminService.configurations)
     }
 }
