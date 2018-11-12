@@ -16,6 +16,10 @@ services:
       fint.events.orgIds: "health.fintlabs.no"
       fint.audit.mongo.databasename: fint-audit-xxxx
       fint.hazelcast.members: consumer,provider
+    logging:
+      driver: journald
+      options:
+        tag: "{{.ImageName}}"
     deploy:
       placement:
         constraints:
@@ -43,6 +47,10 @@ services:
       fint.audit.mongo.databasename: fint-audit-xxxx
       fint.hazelcast.members: consumer,provider
       fint.cache.manager: hazelcast
+    logging:
+      driver: journald
+      options:
+        tag: "{{.ImageName}}"
     deploy:
       placement:
         constraints:
@@ -71,6 +79,10 @@ services:
       fint.oauth.client-id: "659a3a1c-f4df-48d9-8ca1-c01c08eaaee4"
       fint.oauth.client-secret: "NScfTIgx76Be-qc_tz5uc80Lpnz37oErbdXYEbslIhNDuWyz-W5sCj6NTo4NFJjcbrD6VH0w6Q_SWAUuh8xkkg"
       fint.oauth.scope: fint-client
+    logging:
+      driver: journald
+      options:
+        tag: "{{.ImageName}}"
     deploy:
       placement:
         constraints:

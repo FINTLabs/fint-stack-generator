@@ -53,6 +53,10 @@ class Generator {
         stack['services']['health-adapter']['environment']['fint.adapter.status-endpoint'] = "https://${model.environment}.felleskomponent.no${model.uri}/provider/status".toString()
         stack['services']['health-adapter']['environment']['fint.adapter.response-endpoint'] = "https://${model.environment}.felleskomponent.no${model.uri}/provider/response".toString()
 
+        stack['services']['consumer']['logging']['options']['tag'] = "${model.stack}/consumer".toString()
+        stack['services']['provider']['logging']['options']['tag'] = "${model.stack}/provider".toString()
+        stack['services']['health-adapter']['logging']['options']['tag'] = "${model.stack}/health-adapter".toString()
+
         return yaml.dump(stack)
     }
 
