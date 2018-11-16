@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: C:\Users\noasgnil\go\bin\kompose.exe convert -f docker-stack.yml
+    kompose.version: 1.16.0 (HEAD)
+    service.beta.kubernetes.io/azure-load-balancer-internal: "true"
+  creationTimestamp: null
+  labels:
+    io.kompose.service: stacks
+  name: stacks
+spec:
+  ports:
+  - name: "8080"
+    port: 8080
+  type: LoadBalancer
+  selector:
+    io.kompose.service: stacks
+status:
+  loadBalancer: {}
