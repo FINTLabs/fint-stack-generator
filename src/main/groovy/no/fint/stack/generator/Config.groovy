@@ -1,5 +1,6 @@
 package no.fint.stack.generator
 
+import no.fint.stack.generator.http.AuthenticatingRequestInterceptor
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.web.client.RestTemplateBuilder
@@ -13,21 +14,21 @@ class Config {
     @Value('${fint.admin.uri}')
     String adminuri
 
-    @Value('${fint.dtr.username}')
+    @Value('${fint.registry.username}')
     String username
 
-    @Value('${fint.dtr.apikey}')
-    String apikey
+    @Value('${fint.registry.password}')
+    String password
 
-    @Value('${fint.dtr.uri}')
-    String dtruri
+    @Value('${fint.registry.uri}')
+    String registryuri
 
     @Bean
-    @Qualifier('dtr')
-    RestOperations restForDtr(RestTemplateBuilder builder) {
+    @Qualifier('registry')
+    RestOperations restForRegistry(RestTemplateBuilder builder) {
         return builder
-                .basicAuthorization(username, apikey)
-                .rootUri(dtruri)
+                .rootUri(registryuri)
+                .additionalCustomizers(new AuthenticatingRequestInterceptor(username, password))
                 .additionalInterceptors({ request, body, execution -> println(request.URI); execution.execute(request, body) } as ClientHttpRequestInterceptor)
                 .build()
     }

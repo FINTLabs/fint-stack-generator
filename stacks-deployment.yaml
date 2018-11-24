@@ -1,0 +1,29 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    io.kompose.service: stacks
+  name: stacks
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        io.kompose.service: stacks
+    spec:
+      restartPolicy: Always
+      containers:
+      - env:
+        - name: TZ
+          value: Europe/Oslo
+        - name: server.context-path
+          value: /stacks
+        image: fintlabs.azurecr.io/stack-generator:latest
+        name: stacks
+        ports:
+        - containerPort: 8080
+        resources: {}
+status: {}

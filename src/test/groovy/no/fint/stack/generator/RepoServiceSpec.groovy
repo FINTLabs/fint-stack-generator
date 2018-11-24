@@ -10,14 +10,16 @@ class RepoServiceSpec extends Specification {
     RepoService repoService
     def "Query for beta consumers"() {
         when:
-        def result = repoService.search('beta', 'consumer')
+        def result = repoService.search('consumer')
+        println(result)
 
         then:
         result
         result.size() > 0
 
         when:
-        def version = repoService.tags('beta', result[0])
+        def version = repoService.tags(result[0])
+        println(version)
 
         then:
         version

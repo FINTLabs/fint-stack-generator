@@ -10,20 +10,20 @@ import org.springframework.web.client.RestOperations
 class RepoService {
 
     @Autowired
-    @Qualifier("dtr")
+    @Qualifier("registry")
     RestOperations restTemplate
 
-    String[] search(String owner, String query) {
+    String[] search(String query) {
         def slurper = new JsonSlurper()
-        def result = restTemplate.getForObject('/api/v0/index/dockersearch?q={query}', String, query)
+        def result = restTemplate.getForObject('/_catalog', String)
         def data = slurper.parseText(result)
-        return data.results.findAll { it.name.startsWith(owner) }.collect { it.name - "$owner/" }
+        return data.repositories.findAll { it.contains(query) }
     }
 
-    String[] tags(String namespace, String reponame) {
+    String[] tags(String name) {
         def slurper = new JsonSlurper()
-        def result = restTemplate.getForObject('/api/v0/repositories/{namespace}/{reponame}/tags', String, namespace, reponame)
+        def result = restTemplate.getForObject('/{name}/tags/list', String, name)
         def data = slurper.parseText(result)
-        return data.collect { it.name }
+        return data.tags
     }
 }

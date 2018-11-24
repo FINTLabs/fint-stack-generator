@@ -1,7 +1,7 @@
 fint:
   admin:
     uri: https://admin-beta.fintlabs.no
-  dtr:
+  registry:
     username: jenkins
     apikey: 6eecebf9-f945-4354-9b85-f402a0dd96c6
     uri: https://dtr.fintlabs.no
