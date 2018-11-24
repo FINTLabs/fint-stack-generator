@@ -3,7 +3,11 @@ package no.fint.stack.generator
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
+import org.springframework.util.AntPathMatcher
 import org.springframework.web.bind.annotation.*
+import org.springframework.web.servlet.HandlerMapping
+
+import javax.servlet.http.HttpServletRequest
 
 @RestController
 @RequestMapping(value = '/api', produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -23,14 +27,20 @@ class ApiController {
         ResponseEntity.ok(generator.generate(model))
     }
 
-    @GetMapping('/tags/{namespace}/{reponame}')
-    ResponseEntity getTags(@PathVariable String namespace, @PathVariable String reponame) {
-        ResponseEntity.ok(repoService.tags(namespace, reponame))
+    @GetMapping('/tags/**')
+    ResponseEntity getTags(HttpServletRequest request) {
+        final String path =
+                request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE).toString()
+        final String bestMatchingPattern =
+                request.getAttribute(HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE).toString()
+        String arguments = new AntPathMatcher().extractPathWithinPattern(bestMatchingPattern, path)
+        println(arguments)
+        ResponseEntity.ok(repoService.tags(arguments))
     }
 
-    @GetMapping('/search/{namespace}/{query}')
-    ResponseEntity search(@PathVariable String namespace, @PathVariable String query) {
-        ResponseEntity.ok(repoService.search(namespace, query))
+    @GetMapping('/search/{query}')
+    ResponseEntity search(@PathVariable String query) {
+        ResponseEntity.ok(repoService.search(query))
     }
 
     @GetMapping('/configurations')

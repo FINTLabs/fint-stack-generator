@@ -13,6 +13,13 @@ class RepoService {
     @Qualifier("registry")
     RestOperations restTemplate
 
+    @Autowired
+    Config config
+
+    def registry() {
+        config.registryname
+    }
+
     String[] search(String query) {
         def slurper = new JsonSlurper()
         def result = restTemplate.getForObject('/_catalog', String)

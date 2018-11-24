@@ -8,42 +8,12 @@ function updateOptions(element, data) {
     }
 }
 
-function refetch() {
-    fetchConsumers();
-    fetchProviders();
-}
-
-function fetchConsumers() {
-    console.log("fetchConsumers called...");
-    var e = document.getElementById("repository");
-    var repo = e.options[e.selectedIndex].value;
-    var consumer = document.getElementById("consumer");
-    fetch(`./api/search/${repo}/consumer`)
-    .then(response => response.json())
-    .then(data => {
-        updateOptions(consumer, data);
-        fetchTags();
-    });
-}
-
-function fetchProviders() {
-    console.log("fetchProviders called...");
-    var e = document.getElementById("repository");
-    var repo = e.options[e.selectedIndex].value;
-    var provider = document.getElementById("provider");
-    fetch(`./api/tags/${repo}/provider`)
-    .then(response => response.json())
-    .then(data => updateOptions(provider, data));
-}
-
 function fetchTags() {
     console.log("fetchTags called...");
-    var e = document.getElementById("repository");
-    var repo = e.options[e.selectedIndex].value;
-    e = document.getElementById("consumer");
+    var e = document.getElementById("consumer");
     var consumer = e.options[e.selectedIndex].value;
     var version = document.getElementById("version");
-    fetch(`./api/tags/${repo}/${consumer}`)
+    fetch(`./api/tags/${consumer}`)
     .then(response => response.json())
     .then(data => updateOptions(version, data));
 }

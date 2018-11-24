@@ -20,14 +20,14 @@ class Config {
     @Value('${fint.registry.password}')
     String password
 
-    @Value('${fint.registry.uri}')
-    String registryuri
+    @Value('${fint.registry.name}')
+    String registryname
 
     @Bean
     @Qualifier('registry')
     RestOperations restForRegistry(RestTemplateBuilder builder) {
         return builder
-                .rootUri(registryuri)
+                .rootUri("https://$registryname/v2")
                 .additionalCustomizers(new AuthenticatingRequestInterceptor(username, password))
                 .additionalInterceptors({ request, body, execution -> println(request.URI); execution.execute(request, body) } as ClientHttpRequestInterceptor)
                 .build()

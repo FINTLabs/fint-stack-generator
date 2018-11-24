@@ -3,8 +3,8 @@ fint:
     uri: https://admin-beta.fintlabs.no
   registry:
     username: jenkins
-    apikey: 6eecebf9-f945-4354-9b85-f402a0dd96c6
-    uri: https://dtr.fintlabs.no
+    password: password
+    name: dtr.fintlabs.no
 
 server:
   context-path: /stacks

@@ -46,14 +46,7 @@
             <input id="port" type="number" min="8000" max="9999" th:field="*{port}"/>
         </li>
 
-        <li>
-            <label for="repository">Repository</label>
-            <select id="repository" th:field="*{repository}" onchange="refetch()">
-                <option value="beta">beta</option>
-                <option value="prod">prod</option>
-            </select>
-        </li>
-
+        <input type="hidden"  th:field="*{repository}" />
 
         <li>
             <label for="consumer">Consumer</label>
