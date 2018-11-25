@@ -2,9 +2,9 @@ package no.fint.stack.generator.http
 
 import groovy.json.JsonSlurper
 import groovy.util.logging.Slf4j
-import org.apache.http.HttpHeaders
 import org.springframework.boot.web.client.RestTemplateBuilder
 import org.springframework.boot.web.client.RestTemplateCustomizer
+import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpRequest
 import org.springframework.http.client.ClientHttpRequestExecution
 import org.springframework.http.client.ClientHttpRequestInterceptor
