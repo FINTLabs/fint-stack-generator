@@ -26,8 +26,6 @@ class StackController {
     String form(Model model) {
         model.addAttribute('stack', new StackModel(repository: repoService.registry()))
         model.addAttribute('configurations', adminService.configurations)
-        model.addAttribute('consumers', repoService.search('consumer'))
-        model.addAttribute('providers', repoService.tags('beta/provider'))
         return 'stack'
     }
 
@@ -35,9 +33,6 @@ class StackController {
     String stack(Model model, @ModelAttribute StackModel body) {
         model.addAttribute('stack', body)
         model.addAttribute('configurations', adminService.configurations)
-        model.addAttribute('consumers', repoService.search('consumer'))
-        model.addAttribute('versions', repoService.tags(body.consumer))
-        model.addAttribute('providers', repoService.tags('beta/provider'))
         model.addAttribute('result', generator.generate(body))
         return 'stack'
     }

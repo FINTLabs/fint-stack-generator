@@ -1,12 +1,12 @@
 package no.fint.stack.generator
 
+
 import no.fint.stack.generator.http.AuthenticatingRequestInterceptor
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.web.client.RestTemplateBuilder
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.http.client.ClientHttpRequestInterceptor
 import org.springframework.web.client.RestOperations
 
 @Configuration
@@ -29,7 +29,6 @@ class Config {
         return builder
                 .rootUri("https://$registryname/v2")
                 .additionalCustomizers(new AuthenticatingRequestInterceptor(username, password))
-                .additionalInterceptors({ request, body, execution -> println(request.URI); execution.execute(request, body) } as ClientHttpRequestInterceptor)
                 .build()
     }
 
@@ -38,7 +37,6 @@ class Config {
     RestOperations restForAdmin(RestTemplateBuilder builder) {
         return builder
                 .rootUri(adminuri)
-                .additionalInterceptors({ request, body, execution -> println(request.URI); execution.execute(request, body) } as ClientHttpRequestInterceptor)
                 .build()
     }
 }

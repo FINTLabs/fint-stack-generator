@@ -1,11 +1,40 @@
-function updateOptions(element, data) {
+function updateOptions(element, data, selected) {
     element.options.length = 1;
     for (item of data) {
         var opt = document.createElement("option");
         opt.value = item;
         opt.text = item;
+        if (item === selected) {
+            opt.selected = "selected";
+        }
         element.options.add(opt);
     }
+}
+
+function refetch(consumer, version, provider) {
+    console.log(`consumer = ${consumer} ${version}, provider = ${provider}`);
+    fetchConsumers(consumer, version);
+    fetchProviders(provider);
+}
+
+function fetchConsumers(actualConsumer, actualVersion) {
+    console.log(`fetchConsumers(${actualConsumer},${actualVersion}) called...`);
+    var consumer = document.getElementById("consumer");
+    fetch(`./api/search/consumer`)
+    .then(response => response.json())
+    .then(data => updateOptions(consumer, data, actualConsumer));
+    var version = document.getElementById("version");
+    fetch(`./api/tags/${actualConsumer}`)
+    .then(response => response.json())
+    .then(data => updateOptions(version, data, actualVersion));
+}
+
+function fetchProviders(selected) {
+    console.log(`fetchProviders(${selected}) called...`);
+    var provider = document.getElementById("provider");
+    fetch(`./api/tags/beta/provider`)
+    .then(response => response.json())
+    .then(data => updateOptions(provider, data, selected));
 }
 
 function fetchTags() {
@@ -15,7 +44,7 @@ function fetchTags() {
     var version = document.getElementById("version");
     fetch(`./api/tags/${consumer}`)
     .then(response => response.json())
-    .then(data => updateOptions(version, data));
+    .then(data => updateOptions(version, data, ""));
 }
 
 function updateConfiguration(configurations) {

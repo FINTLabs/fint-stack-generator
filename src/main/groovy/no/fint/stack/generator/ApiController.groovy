@@ -34,7 +34,6 @@ class ApiController {
         final String bestMatchingPattern =
                 request.getAttribute(HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE).toString()
         String arguments = new AntPathMatcher().extractPathWithinPattern(bestMatchingPattern, path)
-        println(arguments)
         ResponseEntity.ok(repoService.tags(arguments))
     }
 

@@ -55,10 +55,12 @@ class AuthenticatingRequestInterceptor implements ClientHttpRequestInterceptor, 
                 response = execution.execute(request, body)
             } else if (result.scheme == 'Basic') {
                 def token = encodeToString("${username}:${password}".getBytes(UTF_8))
-                request.headers.set(HttpHeaders.AUTHORIZATION, "Basic " + token)
+                request.headers.set(HttpHeaders.AUTHORIZATION, "Basic $token")
 
                 log.debug('Retrying request with Basic auth ...')
                 response = execution.execute(request, body)
+            } else {
+                log.warn('Unhandled authentication challenge {}', result)
             }
         }
         response
@@ -68,7 +70,7 @@ class AuthenticatingRequestInterceptor implements ClientHttpRequestInterceptor, 
         def realm = p.remove('realm')
         def slurper = new JsonSlurper()
         p.'client_id' = UUID.randomUUID().toString()
-        def b = new UriComponentsBuilder().uri(new URI(realm))
+        def b = UriComponentsBuilder.fromUriString(realm)
         p.each { entry -> b.queryParam(entry.key, entry.value) }
         URI uri = b.build().toUri()
         log.debug('URI: {}', uri)
@@ -87,8 +89,11 @@ class AuthenticatingRequestInterceptor implements ClientHttpRequestInterceptor, 
 
     @Override
     void handleError(ClientHttpResponse response) throws IOException {
-        String body = IoUtil.getText(response.body)
-        throw new HttpServerErrorException(response.statusCode, response.statusText, response.headers, body.getBytes(Charset.defaultCharset()), Charset.defaultCharset())
+        def body = response.body.getBytes()
+        def charset = response.headers?.getContentType()?.getCharset()
+        def error = new HttpServerErrorException(response.statusCode, response.statusText, response.headers, body, charset)
+        log.warn('Error: {}', error)
+        throw error
     }
 
 }

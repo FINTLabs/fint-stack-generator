@@ -10,6 +10,8 @@
 
         var configurations = /*[[${configurations}]]*/ [];
 
+        window.onload = () => { refetch([[${stack.consumer}]],[[${stack.version}]],[[${stack.provider}]]); };
+
         /*]]>*/
     </script>
 </head>
@@ -31,7 +33,7 @@
         <li>
             <label for="stack">Stack</label>
             <select list="configurations" id="stack" th:field="*{stack}" onchange="updateConfiguration(configurations)">
-                <option value=""></option>
+                <option value="">...</option>
                 <option th:each="item : ${configurations}" th:value="${item.name}" th:text="${item.name}"></option>
             </select>
         </li>
@@ -46,17 +48,15 @@
             <input id="port" type="number" min="8000" max="9999" th:field="*{port}"/>
         </li>
 
-        <input type="hidden"  th:field="*{repository}" />
+        <input type="hidden" th:field="*{repository}" />
 
         <li>
             <label for="consumer">Consumer</label>
             <select id="consumer" th:field="*{consumer}" onchange="fetchTags()">
-                <option value=""></option>
-                <option th:each="item : ${consumers}" th:value="${item}" th:text="${item}">consumer</option>
+                <option value="">...</option>
             </select>
             <select id="version" th:field="*{version}">
-                <option value=""></option>
-                <option th:each="item : ${versions}" th:value="${item}" th:text="${item}">latest</option>
+                <option value="">...</option>
             </select>
         </li>
 
@@ -64,8 +64,7 @@
         <li>
             <label for="provider">Provider</label>
             <select id="provider" th:field="*{provider}">
-                <option value=""></option>
-                <option th:each="item : ${providers}" th:value="${item}" th:text="${item}">provider</option>
+                <option value="">...</option>
             </select>
         </li>
 
