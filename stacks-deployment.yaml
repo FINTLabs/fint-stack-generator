@@ -31,8 +31,14 @@ spec:
           httpGet:
             port: 8080
             path: /stacks/health
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "1"
         env:
         - name: TZ
           value: Europe/Oslo
+        - name: JAVA_TOOL_OPTIONS
+          value: "-XX:+ExitOnOutOfMemoryError -Xmx256m -verbose:gc"
         - name: server.context-path
           value: /stacks
