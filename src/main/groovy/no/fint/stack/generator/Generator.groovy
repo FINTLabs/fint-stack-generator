@@ -8,9 +8,10 @@ import org.yaml.snakeyaml.Yaml
 @Service
 class Generator {
 
-    String env(String s) {
+    static String env(String s) {
         switch (s) {
             case "api": return ''
+            case "play-with-fint": return '-pwf'
             default: return "-${s}"
         }
     }
