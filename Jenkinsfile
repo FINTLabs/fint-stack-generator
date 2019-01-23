@@ -10,8 +10,8 @@ pipeline {
             when { branch 'master' }
             steps {
                 withDockerRegistry([credentialsId: 'fintlabs.azurecr.io', url: 'https://fintlabs.azurecr.io']) {
-                    sh "docker tag ${GIT_COMMIT} fintlabs.azurecr.io/stack-generator:RC-${BUILD_NUMBER}"
-                    sh "docker push fintlabs.azurecr.io/stack-generator:RC-${BUILD_NUMBER}"
+                    sh "docker tag ${GIT_COMMIT} fintlabs.azurecr.io/stack-generator:build.${BUILD_NUMBER}"
+                    sh "docker push fintlabs.azurecr.io/stack-generator:build.${BUILD_NUMBER}"
                 }
             }
         }
@@ -19,8 +19,8 @@ pipeline {
             when { changeRequest() }
             steps {
                 withDockerRegistry([credentialsId: 'fintlabs.azurecr.io', url: 'https://fintlabs.azurecr.io']) {
-                    sh "docker tag ${GIT_COMMIT} fintlabs.azurecr.io/stack-generator:${BRANCH_NAME}-${BUILD_NUMBER}"
-                    sh "docker push fintlabs.azurecr.io/stack-generator:${BRANCH_NAME}-${BUILD_NUMBER}"
+                    sh "docker tag ${GIT_COMMIT} fintlabs.azurecr.io/stack-generator:${BRANCH_NAME}.${BUILD_NUMBER}"
+                    sh "docker push fintlabs.azurecr.io/stack-generator:${BRANCH_NAME}.${BUILD_NUMBER}"
                 }
             }
         }
