@@ -1,6 +1,6 @@
 function updateOptions(element, data, selected) {
     element.options.length = 1;
-    for (item of data) {
+    for (item of data.sort()) {
         var opt = document.createElement("option");
         opt.value = item;
         opt.text = item;
@@ -32,7 +32,7 @@ function fetchConsumers(actualConsumer, actualVersion) {
 function fetchProviders(selected) {
     console.log(`fetchProviders(${selected}) called...`);
     var provider = document.getElementById("provider");
-    fetch(`./api/tags/beta/provider`)
+    fetch(`./api/tags/provider`)
     .then(response => response.json())
     .then(data => updateOptions(provider, data, selected));
 }

@@ -16,6 +16,7 @@ class RepoServiceSpec extends Specification {
         then:
         result
         result.size() > 0
+        result.every { it.startsWith('consumer-')}
 
         when:
         def version = repoService.tags(result[0])

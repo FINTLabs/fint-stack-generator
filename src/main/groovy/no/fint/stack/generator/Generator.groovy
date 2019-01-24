@@ -46,7 +46,7 @@ class Generator {
         }
 
         stack['services']['consumer']['image'] = "${model.repository}/${model.consumer}:${model.version}".toString()
-        stack['services']['provider']['image'] = "${model.repository}/beta/provider:${model.provider}".toString()
+        stack['services']['provider']['image'] = "${model.repository}/provider:${model.provider}".toString()
 
         stack['services']['consumer']['environment']['fint.relations.default-base-url'] = "https://${model.environment}.felleskomponent.no".toString()
 

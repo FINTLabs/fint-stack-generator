@@ -12,7 +12,7 @@ class GeneratorSpec extends Specification {
                 stack: 'utdanning-elev',
                 uri: '/utdanning/elev',
                 port: 8113,
-                repository: 'beta',
+                repository: 'dtr.fintlabs.no/beta',
                 consumer: 'consumer-utdanning-elev',
                 version: '0.8.0-3.1.0',
                 provider: '2.0.1',
@@ -21,9 +21,23 @@ class GeneratorSpec extends Specification {
 
         when:
         def result = generator.generate(stack)
+        println(result)
 
         then:
         noExceptionThrown()
         result
+    }
+
+    def 'Removing prefix from string'() {
+        given:
+        def string = 'beta/consumer-utdanning-elev'
+        def prefix = 'beta/'
+
+        when:
+        def result = string - prefix
+
+        then:
+        result == 'consumer-utdanning-elev'
+
     }
 }

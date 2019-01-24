@@ -4,7 +4,7 @@ fint:
   registry:
     username: jenkins
     password: password
-    name: dtr.fintlabs.no
+    name: dtr.fintlabs.no/beta
 
 server:
   context-path: /stacks

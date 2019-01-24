@@ -31,18 +31,13 @@ class AuthenticatingRequestInterceptor implements ClientHttpRequestInterceptor, 
 
     @Override
     void customize(RestTemplate restTemplate) {
-        restTemplate.setErrorHandler(this)
-        def interceptors = restTemplate.interceptors
-        if (!interceptors?.isEmpty()) {
-            interceptors.push(this)
-            restTemplate.setInterceptors(interceptors)
-        } else {
-            restTemplate.setInterceptors([this])
-        }
+        restTemplate.errorHandler = this
+        restTemplate.interceptors = [this, *restTemplate.interceptors]
     }
 
     @Override
     ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution) throws IOException {
+        log.debug('Request: {}', request.URI)
         def response = execution.execute(request, body)
         if (response.rawStatusCode == 401) {
             def result = WwwAuthenticateHeaderParser.parse(response.headers.getFirst(HttpHeaders.WWW_AUTHENTICATE))
@@ -63,6 +58,7 @@ class AuthenticatingRequestInterceptor implements ClientHttpRequestInterceptor, 
                 log.warn('Unhandled authentication challenge {}', result)
             }
         }
+        log.debug('Response: {}', response.statusCode)
         response
     }
 

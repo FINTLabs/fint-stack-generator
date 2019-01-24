@@ -1,6 +1,5 @@
 package no.fint.stack.generator
 
-
 import no.fint.stack.generator.http.AuthenticatingRequestInterceptor
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.beans.factory.annotation.Value
@@ -26,8 +25,9 @@ class Config {
     @Bean
     @Qualifier('registry')
     RestOperations restForRegistry(RestTemplateBuilder builder) {
+
         return builder
-                .rootUri("https://$registryname/v2")
+                .rootUri("https://${registryname.takeWhile { it != '/' }}/v2")
                 .additionalCustomizers(new AuthenticatingRequestInterceptor(username, password))
                 .build()
     }
