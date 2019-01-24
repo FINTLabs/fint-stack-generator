@@ -2,11 +2,11 @@ package no.fint.stack.generator
 
 import spock.lang.Specification
 
-class GeneratorSpec extends Specification {
+class DockerGeneratorSpec extends Specification {
 
     def "Able to generate a stack file from input"() {
         given:
-        def generator = new Generator()
+        def generator = new DockerGenerator()
         def stack = new StackModel(
                 environment: 'beta',
                 stack: 'utdanning-elev',

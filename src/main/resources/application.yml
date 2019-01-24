@@ -1,6 +1,8 @@
 fint:
   admin:
     uri: https://admin-beta.fintlabs.no
+  stack:
+    type: Docker
   registry:
     username: jenkins
     password: password
