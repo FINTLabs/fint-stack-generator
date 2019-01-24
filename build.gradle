@@ -1,17 +1,17 @@
 buildscript {
-	ext {
-		springBootVersion = '1.5.18.RELEASE'
-	}
-	repositories {
-		mavenCentral()
-	}
-	dependencies {
-		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-	}
+    ext {
+        springBootVersion = '1.5.18.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
 }
 
 plugins {
-	id 'com.github.ben-manes.versions' version '0.20.0'
+    id 'com.github.ben-manes.versions' version '0.20.0'
 }
 
 apply plugin: 'groovy'
@@ -22,21 +22,22 @@ group = 'no.fint'
 sourceCompatibility = 1.8
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
 
 
 dependencies {
-	compile('org.springframework.boot:spring-boot-starter')
-	compile('org.springframework.boot:spring-boot-starter-web')
-	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
-	compile('org.springframework.boot:spring-boot-actuator')
-	compile('org.codehaus.groovy:groovy')
+    compile('org.springframework.boot:spring-boot-starter')
+    compile('org.springframework.boot:spring-boot-starter-web')
+    compile('org.springframework.boot:spring-boot-starter-thymeleaf')
+    compile('org.springframework.boot:spring-boot-actuator')
+    compile('org.codehaus.groovy:groovy')
     compile('org.codehaus.groovy:groovy-json')
+    compile('io.kubernetes:client-java:4.0.0-beta1')
 
-	testCompile('org.spockframework:spock-spring:1.1-groovy-2.4')
-	testCompile('org.spockframework:spock-core:1.1-groovy-2.4')
-	testCompile('org.springframework.boot:spring-boot-starter-test')
+    testCompile('org.spockframework:spock-spring:1.1-groovy-2.4')
+    testCompile('org.spockframework:spock-core:1.1-groovy-2.4')
+    testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 
 task copyDependencies(type: Copy) {
