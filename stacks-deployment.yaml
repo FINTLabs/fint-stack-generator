@@ -21,8 +21,8 @@ spec:
     spec:
       restartPolicy: Always
       containers:
-      - name: stacks
-        image: fintlabs.azurecr.io/stack-generator:build.11
+      - name: stacks-docker
+        image: fintlabs.azurecr.io/stack-generator:build.14
         ports:
         - containerPort: 8080
         readinessProbe:
@@ -30,7 +30,7 @@ spec:
           timeoutSeconds: 5
           httpGet:
             port: 8080
-            path: /stacks/health
+            path: /stacks/docker/health
         resources:
           limits:
             memory: "512Mi"
@@ -41,4 +41,45 @@ spec:
         - name: JAVA_TOOL_OPTIONS
           value: "-XX:+ExitOnOutOfMemoryError -Xmx256m -verbose:gc"
         - name: server.context-path
-          value: /stacks
+          value: /stacks/docker
+      - name: stacks-k8s
+        image: fintlabs.azurecr.io/stack-generator:build.14
+        ports:
+          - containerPort: 8081
+        readinessProbe:
+          initialDelaySeconds: 60
+          timeoutSeconds: 5
+          httpGet:
+            port: 8081
+            path: /stacks/k8s/health
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "1"
+        env:
+          - name: TZ
+            value: Europe/Oslo
+          - name: JAVA_TOOL_OPTIONS
+            value: "-XX:+ExitOnOutOfMemoryError -Xmx256m -verbose:gc"
+          - name: server.context-path
+            value: /stacks/k8s
+          - name: server.port
+            value: "8081"
+          - name: fint.stack.type
+            value: Kubernetes
+          - name: fint.registry.name
+            valueFrom:
+              secretKeyRef:
+                name: fintlabs-azurecr
+                key: name
+          - name: fint.registry.username
+            valueFrom:
+              secretKeyRef:
+                name: fintlabs-azurecr
+                key: username
+          - name: fint.registry.password
+            valueFrom:
+              secretKeyRef:
+                name: fintlabs-azurecr
+                key: password
+

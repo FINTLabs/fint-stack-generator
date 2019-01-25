@@ -41,6 +41,7 @@ class AuthenticatingRequestInterceptor implements ClientHttpRequestInterceptor, 
         def response = execution.execute(request, body)
         if (response.rawStatusCode == 401) {
             def result = WwwAuthenticateHeaderParser.parse(response.headers.getFirst(HttpHeaders.WWW_AUTHENTICATE))
+            response.close()
             if (result.scheme == 'Bearer') {
                 log.debug('Requesting Bearer token ...')
                 def token = getBearerToken(result.attributes)
