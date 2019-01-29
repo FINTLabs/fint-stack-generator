@@ -22,7 +22,7 @@ spec:
       restartPolicy: Always
       containers:
       - name: stacks-docker
-        image: fintlabs.azurecr.io/stack-generator:build.14
+        image: fintlabs.azurecr.io/stack-generator:build.15
         ports:
         - containerPort: 8080
         readinessProbe:
@@ -43,7 +43,7 @@ spec:
         - name: server.context-path
           value: /stacks/docker
       - name: stacks-k8s
-        image: fintlabs.azurecr.io/stack-generator:build.14
+        image: fintlabs.azurecr.io/stack-generator:build.15
         ports:
           - containerPort: 8081
         readinessProbe:
