@@ -71,9 +71,12 @@ spec:
               port: 8080
               path: /administrasjon/kodeverk/health
           resources:
+            limits:
+              memory: "3Gi"
+              cpu: "2"
             requests:
               memory: "2Gi"
-              cpu: "750m"
+              cpu: "500m"
           env:
             - name: TZ
               value: Europe/Oslo
@@ -140,6 +143,9 @@ spec:
               port: 8080
               path: /administrasjon/kodeverk/provider/health
           resources:
+            limits:
+              memory: "3Gi"
+              cpu: "2"
             requests:
               memory: "2Gi"
               cpu: "500m"
