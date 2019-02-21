@@ -43,7 +43,7 @@ spec:
         - name: server.context-path
           value: /stacks/docker
       - name: stacks-k8s
-        image: fintlabs.azurecr.io/stack-generator:build.15
+        image: fintlabs.azurecr.io/stack-generator:build.2
         ports:
           - containerPort: 8081
         readinessProbe:
@@ -65,6 +65,8 @@ spec:
             value: /stacks/k8s
           - name: server.port
             value: "8081"
+          - name: fint.admin.uri
+            value: https://admin.fintlabs.no
           - name: fint.stack.type
             value: Kubernetes
           - name: fint.registry.name

@@ -24,6 +24,7 @@ class StackController {
 
     @GetMapping
     String form(Model model) {
+        model.addAttribute('usingport', generator.portRequired())
         model.addAttribute('stack', new StackModel(repository: repoService.registry()))
         model.addAttribute('configurations', adminService.configurations)
         return 'stack'
@@ -31,6 +32,7 @@ class StackController {
 
     @PostMapping
     String stack(Model model, @ModelAttribute StackModel body) {
+        model.addAttribute('usingport', generator.portRequired())
         model.addAttribute('stack', body)
         model.addAttribute('configurations', adminService.configurations)
         model.addAttribute('result', generator.generate(body))

@@ -18,6 +18,11 @@ class DockerGenerator implements Generator {
         }
     }
 
+    @Override
+    boolean portRequired() {
+        return true
+    }
+
     String generate(StackModel model) throws Exception {
 
 
