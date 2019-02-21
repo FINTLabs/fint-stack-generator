@@ -76,12 +76,12 @@ spec:
               cpu: "2"
             requests:
               memory: "2Gi"
-              cpu: "500m"
+              cpu: "250m"
           env:
             - name: TZ
               value: Europe/Oslo
             - name: JAVA_TOOL_OPTIONS
-              value: "-XX:+ExitOnOutOfMemoryError -Xmx1536m -verbose:gc"
+              value: "-XX:+ExitOnOutOfMemoryError -Xmx2G -verbose:gc"
             - name: fint.audit.mongo.databasename
               value: fint-audit-beta
             - name: fint.audit.mongo.connection-string
@@ -148,12 +148,12 @@ spec:
               cpu: "2"
             requests:
               memory: "2Gi"
-              cpu: "500m"
+              cpu: "250m"
           env:
             - name: TZ
               value: Europe/Oslo
             - name: JAVA_TOOL_OPTIONS
-              value: "-XX:+ExitOnOutOfMemoryError -Xmx1536m -verbose:gc"
+              value: "-XX:+ExitOnOutOfMemoryError -Xmx2G -verbose:gc"
             - name: fint.audit.mongo.databasename
               value: fint-audit-beta
             - name: fint.audit.mongo.connection-string
