@@ -45,6 +45,16 @@ class KubeGenerator implements Generator {
             setenv(consumer, 'fint.relations.default-base-url', "https://${model.environment}.felleskomponent.no")
         }
 
+        if (model.environment == 'play-with-fint') {
+            stack.each { it.metadata.namespace = 'pwf' }
+            stack.findAll { it.kind == 'Deployment' }.each {
+                setenv(it, 'fint.hazelcast.kubernetes.namespace', 'pwf')
+                setenv(it, 'fint.events.orgIds', 'health.fintlabs.no,pwf.no')
+            }
+            putenv(consumer, 'fint.consumer.default-org-id', 'pwf.no')
+            putenv(consumer, 'fint.consumer.override-org-id','true')
+        }
+
         if (model.uri) {
             setenv(consumer, 'server.context-path', model.uri)
             setenv(provider, 'server.context-path', model.uri + '/provider')
@@ -79,5 +89,9 @@ class KubeGenerator implements Generator {
 
     static setenv(deployment, name, value) {
         getenv(deployment, name).value = value
+    }
+
+    static putenv(deployment, name, value) {
+        deployment.spec.template.spec.containers.each { it.addEnvItem(new V1EnvVar(name: name, value: value)) }
     }
 }
