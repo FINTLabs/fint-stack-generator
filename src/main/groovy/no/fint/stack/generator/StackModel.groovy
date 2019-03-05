@@ -9,5 +9,5 @@ class StackModel {
     String consumer
     String version
     String provider
-    URI assets
+    String assets
 }

@@ -171,8 +171,6 @@ spec:
               value: fint.stack
             - name: fint.hazelcast.kubernetes.labelValue
               value: administrasjon-kodeverk
-            - name: fint.provider.assets.endpoint
-              value: https://admin-beta.fintlabs.no/api/components/assets/administrasjon_kodeverk
             - name: fint.provider.max-number-of-emitters
               value: "5"
             - name: server.context-path

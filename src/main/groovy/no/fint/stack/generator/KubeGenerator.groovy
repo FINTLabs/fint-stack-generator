@@ -63,8 +63,8 @@ class KubeGenerator implements Generator {
             provider.spec.template.spec.containers.each { it.readinessProbe.httpGet.path = model.uri + '/provider/health' }
         }
 
-        if (model.assets) {
-            setenv(provider, 'fint.provider.assets.endpoint', model.assets)
+        if (!model.assets?.isEmpty() && model.environment != 'play-with-fint') {
+            putenv(provider, 'fint.provider.assets.endpoint', model.assets)
         }
 
         if (model.repository) {

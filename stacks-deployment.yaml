@@ -43,7 +43,7 @@ spec:
         - name: server.context-path
           value: /stacks/docker
       - name: stacks-k8s
-        image: fintlabs.azurecr.io/stack-generator:build.2
+        image: fintlabs.azurecr.io/stack-generator:build.5
         ports:
           - containerPort: 8081
         readinessProbe:
