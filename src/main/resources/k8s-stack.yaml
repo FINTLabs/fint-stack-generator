@@ -81,7 +81,7 @@ spec:
             - name: TZ
               value: Europe/Oslo
             - name: JAVA_TOOL_OPTIONS
-              value: "-XX:+ExitOnOutOfMemoryError -Xmx2G -verbose:gc"
+              value: "-XX:+ExitOnOutOfMemoryError -XX:+UseG1GC -Xmx2G -verbose:gc"
             - name: fint.audit.mongo.databasename
               value: fint-audit-beta
             - name: fint.audit.mongo.connection-string
@@ -153,7 +153,7 @@ spec:
             - name: TZ
               value: Europe/Oslo
             - name: JAVA_TOOL_OPTIONS
-              value: "-XX:+ExitOnOutOfMemoryError -Xmx2G -verbose:gc"
+              value: "-XX:+ExitOnOutOfMemoryError -XX:+UseG1GC -Xmx2G -verbose:gc"
             - name: fint.audit.mongo.databasename
               value: fint-audit-beta
             - name: fint.audit.mongo.connection-string
