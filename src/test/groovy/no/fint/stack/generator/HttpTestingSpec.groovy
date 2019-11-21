@@ -2,10 +2,12 @@ package no.fint.stack.generator
 
 import no.fint.stack.generator.http.AuthenticatingRequestInterceptor
 import org.springframework.boot.web.client.RestTemplateBuilder
+import spock.lang.Ignore
 import spock.lang.Specification
 
 class HttpTestingSpec extends Specification {
 
+    @Ignore // dtr.fintlabs.no is no more.
     def "Fetch from dtr"() {
         given:
         def api = 'https://dtr.fintlabs.no/v2'
@@ -34,10 +36,11 @@ class HttpTestingSpec extends Specification {
         response
     }
 
+    @Ignore // TODO Rewrite to get password from environment
     def "Fetch from Azure CR"() {
         given:
         def api = 'https://fintlabs.azurecr.io/v2'
-        def interceptor = new AuthenticatingRequestInterceptor('fintlabs', '9jXX6X6DKDzZhjHN6lY6/lnJmFT69SoV')
+        def interceptor = new AuthenticatingRequestInterceptor('fintlabs', '')
         def resttemplate = new RestTemplateBuilder().additionalCustomizers(interceptor).build()
 
         when:
