@@ -12,11 +12,6 @@ import org.springframework.stereotype.Service
 class KubeGenerator implements Generator {
 
     @Override
-    boolean portRequired() {
-        return false
-    }
-
-    @Override
     String generate(StackModel model) throws Exception {
         def resource = getClass().getResourceAsStream('/k8s-stack.yaml')
         def stack = Yaml.loadAll(new InputStreamReader(resource))
@@ -36,13 +31,6 @@ class KubeGenerator implements Generator {
                 it.spec.template.spec.containers*.name = "${it.metadata.labels['fint.role']}-${model.stack}"
                 setenv(it, 'fint.hazelcast.kubernetes.labelValue', model.stack)
             }
-        }
-
-        if (model.environment) {
-            def env = DockerGenerator.env(model.environment)
-            setenv(consumer, 'fint.audit.mongo.databasename', "fint-audit${env}")
-            setenv(provider, 'fint.audit.mongo.databasename', "fint-audit${env}")
-            setenv(consumer, 'fint.relations.default-base-url', "https://${model.environment}.felleskomponent.no")
         }
 
         if (model.environment == 'play-with-fint') {

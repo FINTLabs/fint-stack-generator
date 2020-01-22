@@ -25,6 +25,9 @@
 /nbdist/
 /.nb-gradle/
 
+### VS Code / Eclipse ###
+/bin/
+
 ### FINT ###
 /*.yml
 /auth.json

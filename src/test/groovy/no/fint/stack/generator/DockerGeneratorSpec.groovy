@@ -11,7 +11,6 @@ class DockerGeneratorSpec extends Specification {
                 environment: 'beta',
                 stack: 'utdanning-elev',
                 uri: '/utdanning/elev',
-                port: 8113,
                 repository: 'dtr.fintlabs.no/beta',
                 consumer: 'consumer-utdanning-elev',
                 version: '0.8.0-3.1.0',

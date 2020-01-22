@@ -4,9 +4,9 @@ fint:
   stack:
     type: Docker
   registry:
-    username: jenkins
+    username: fintlabs
     password: password
-    name: dtr.fintlabs.no/beta
+    name: fintlabs.azurecr.io
 
 server:
   context-path: /stacks

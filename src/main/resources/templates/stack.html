@@ -44,13 +44,6 @@
             <input id="uri" type="text" th:field="*{uri}"/>
         </li>
 
-        <li th:if="${usingport}">
-            <label for="port">Port</label>
-            <input id="port" type="number" min="8000" max="9999" th:field="*{port}"/>
-        </li>
-
-        <input th:unless="${usingport}" type="hidden" th:field="*{port}" />
-
         <input type="hidden" th:field="*{repository}" />
 
         <li>

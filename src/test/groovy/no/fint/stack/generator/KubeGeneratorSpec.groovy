@@ -40,11 +40,11 @@ class KubeGeneratorSpec extends Specification {
         consumerDeployment
 
         when:
-        def baseUrl = KubeGenerator.getenv(consumerDeployment, 'fint.relations.default-base-url')
-        println(baseUrl)
+        def contextPath = KubeGenerator.getenv(consumerDeployment, 'server.context-path')
+        println(contextPath)
 
         then:
-        baseUrl
+        contextPath
 
         when:
         def providerDeployment = KubeGenerator.getDeployment('provider', result)
@@ -80,7 +80,6 @@ class KubeGeneratorSpec extends Specification {
                 environment: 'beta',
                 stack: 'utdanning-elev',
                 uri: '/utdanning/elev',
-                port: 8113,
                 repository: 'fintlabs.azurecr.io',
                 consumer: 'consumer-utdanning-elev',
                 version: '0.8.0-3.1.0',
