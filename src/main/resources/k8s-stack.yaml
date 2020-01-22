@@ -77,20 +77,16 @@ spec:
             requests:
               memory: "2Gi"
               cpu: "250m"
+          envFrom:
+            - configMapRef:
+                name: fint-environment
+                optional: true
           env:
-            - name: TZ
-              value: Europe/Oslo
-            - name: JAVA_TOOL_OPTIONS
-              value: "-XX:+ExitOnOutOfMemoryError -XX:+UseG1GC -Xmx2G -verbose:gc"
-            - name: fint.audit.mongo.databasename
-              value: fint-audit-beta
             - name: fint.audit.mongo.connection-string
               valueFrom:
                 secretKeyRef:
                   name: fint-audit
                   key: mongodb
-            - name: fint.cache.manager
-              value: default
             - name: fint.events.orgIds
               value: health.fintlabs.no
             - name: fint.hazelcast.kubernetes.enabled
@@ -101,8 +97,6 @@ spec:
               value: fint.stack
             - name: fint.hazelcast.kubernetes.labelValue
               value: administrasjon-kodeverk
-            - name: fint.relations.default-base-url
-              value: https://beta.felleskomponent.no
             - name: server.context-path
               value: /administrasjon/kodeverk
 ---
@@ -149,20 +143,16 @@ spec:
             requests:
               memory: "2Gi"
               cpu: "250m"
+          envFrom:
+            - configMapRef:
+                name: fint-environment
+                optional: true
           env:
-            - name: TZ
-              value: Europe/Oslo
-            - name: JAVA_TOOL_OPTIONS
-              value: "-XX:+ExitOnOutOfMemoryError -XX:+UseG1GC -Xmx2G -verbose:gc"
-            - name: fint.audit.mongo.databasename
-              value: fint-audit-beta
             - name: fint.audit.mongo.connection-string
               valueFrom:
                 secretKeyRef:
                   name: fint-audit
                   key: mongodb
-            - name: fint.events.orgIds
-              value: health.fintlabs.no
             - name: fint.hazelcast.kubernetes.enabled
               value: "true"
             - name: fint.hazelcast.kubernetes.namespace
@@ -171,7 +161,5 @@ spec:
               value: fint.stack
             - name: fint.hazelcast.kubernetes.labelValue
               value: administrasjon-kodeverk
-            - name: fint.provider.max-number-of-emitters
-              value: "5"
             - name: server.context-path
               value: /administrasjon/kodeverk/provider

@@ -38,13 +38,6 @@ class KubeGenerator implements Generator {
             }
         }
 
-        if (model.environment) {
-            def env = DockerGenerator.env(model.environment)
-            setenv(consumer, 'fint.audit.mongo.databasename', "fint-audit${env}")
-            setenv(provider, 'fint.audit.mongo.databasename', "fint-audit${env}")
-            setenv(consumer, 'fint.relations.default-base-url', "https://${model.environment}.felleskomponent.no")
-        }
-
         if (model.environment == 'play-with-fint') {
             stack.each { it.metadata.namespace = 'pwf' }
             stack.findAll { it.kind == 'Deployment' }.each {
