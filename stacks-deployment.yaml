@@ -21,27 +21,6 @@ spec:
     spec:
       restartPolicy: Always
       containers:
-      - name: stacks-docker
-        image: fintlabs.azurecr.io/stack-generator:build.15
-        ports:
-        - containerPort: 8080
-        readinessProbe:
-          initialDelaySeconds: 60
-          timeoutSeconds: 5
-          httpGet:
-            port: 8080
-            path: /stacks/docker/health
-        resources:
-          limits:
-            memory: "512Mi"
-            cpu: "250m"
-        env:
-        - name: TZ
-          value: Europe/Oslo
-        - name: JAVA_TOOL_OPTIONS
-          value: "-XX:+ExitOnOutOfMemoryError -Xmx256m -verbose:gc"
-        - name: server.context-path
-          value: /stacks/docker
       - name: stacks-k8s
         image: fintlabs.azurecr.io/stack-generator:PR-1.5
         ports:
@@ -84,4 +63,3 @@ spec:
               secretKeyRef:
                 name: fintlabs-azurecr
                 key: password
-
