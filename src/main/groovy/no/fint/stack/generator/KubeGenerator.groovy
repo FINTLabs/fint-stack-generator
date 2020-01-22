@@ -12,11 +12,6 @@ import org.springframework.stereotype.Service
 class KubeGenerator implements Generator {
 
     @Override
-    boolean portRequired() {
-        return false
-    }
-
-    @Override
     String generate(StackModel model) throws Exception {
         def resource = getClass().getResourceAsStream('/k8s-stack.yaml')
         def stack = Yaml.loadAll(new InputStreamReader(resource))

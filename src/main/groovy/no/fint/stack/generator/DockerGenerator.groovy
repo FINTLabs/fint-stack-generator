@@ -18,11 +18,6 @@ class DockerGenerator implements Generator {
         }
     }
 
-    @Override
-    boolean portRequired() {
-        return true
-    }
-
     String generate(StackModel model) throws Exception {
 
 
@@ -33,8 +28,8 @@ class DockerGenerator implements Generator {
 
         def stack = yaml.load new ClassPathResource('stack-template.yml').inputStream
 
-        stack['services']['provider']['ports'][0] = "${model.port}:8080".toString()
-        stack['services']['consumer']['ports'][0] = "${model.port + 1}:8080".toString()
+        //stack['services']['provider']['ports'][0] = "${model.port}:8080".toString()
+        //stack['services']['consumer']['ports'][0] = "${model.port + 1}:8080".toString()
 
         stack['services']['consumer']['environment']['server.context-path'] = model.uri
         stack['services']['provider']['environment']['server.context-path'] = "${model.uri}/provider".toString()

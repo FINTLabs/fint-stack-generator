@@ -80,7 +80,6 @@ class KubeGeneratorSpec extends Specification {
                 environment: 'beta',
                 stack: 'utdanning-elev',
                 uri: '/utdanning/elev',
-                port: 8113,
                 repository: 'fintlabs.azurecr.io',
                 consumer: 'consumer-utdanning-elev',
                 version: '0.8.0-3.1.0',
