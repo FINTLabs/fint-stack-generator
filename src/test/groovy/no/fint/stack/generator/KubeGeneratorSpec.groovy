@@ -40,11 +40,11 @@ class KubeGeneratorSpec extends Specification {
         consumerDeployment
 
         when:
-        def baseUrl = KubeGenerator.getenv(consumerDeployment, 'fint.relations.default-base-url')
-        println(baseUrl)
+        def contextPath = KubeGenerator.getenv(consumerDeployment, 'server.context-path')
+        println(contextPath)
 
         then:
-        baseUrl
+        contextPath
 
         when:
         def providerDeployment = KubeGenerator.getDeployment('provider', result)
