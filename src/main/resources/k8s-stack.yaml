@@ -83,8 +83,6 @@ spec:
             - secretRef:
                 name: fint-events-azure-eventhub
           env:
-            - name: fint.events.orgIds
-              value: health.fintlabs.no
             - name: fint.hazelcast.kubernetes.enabled
               value: "true"
             - name: fint.hazelcast.kubernetes.namespace
