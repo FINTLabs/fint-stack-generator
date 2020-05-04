@@ -40,8 +40,6 @@ spec:
             value: Europe/Oslo
           - name: JAVA_TOOL_OPTIONS
             value: "-XX:+ExitOnOutOfMemoryError -Xmx256m -verbose:gc"
-          - name: server.context-path
-            value: /stacks/k8s
           - name: server.port
             value: "8081"
           - name: fint.admin.uri
