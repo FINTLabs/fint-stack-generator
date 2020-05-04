@@ -22,8 +22,18 @@ class ApiController {
     @Autowired
     private AdminService adminService
 
+    @Autowired
+    private Config config
+
     @PostMapping(path = '/generate', produces = 'text/x-yaml', consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     ResponseEntity generate(@RequestBody StackModel model) {
+        if (!model.uri || !model.assets) {
+            def stack = adminService.configurations.find { it.name == model.stack }
+            if (!model.uri) model.uri = stack.path
+            if (!model.assets) model.assets = stack.assetPath
+        }
+        if (!model.repository) model.repository = config.registryname
+        if (!model.consumer) model.consumer = "consumer-${model.stack}"
         ResponseEntity.ok(generator.generate(model))
     }
 
