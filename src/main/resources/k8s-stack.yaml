@@ -80,13 +80,9 @@ spec:
           envFrom:
             - configMapRef:
                 name: fint-environment
-                optional: true
+            - secretRef:
+                name: fint-events-azure-eventhub
           env:
-            - name: fint.audit.mongo.connection-string
-              valueFrom:
-                secretKeyRef:
-                  name: fint-audit
-                  key: mongodb
             - name: fint.events.orgIds
               value: health.fintlabs.no
             - name: fint.hazelcast.kubernetes.enabled
@@ -146,13 +142,9 @@ spec:
           envFrom:
             - configMapRef:
                 name: fint-environment
-                optional: true
+            - secretRef:
+                name: fint-events-azure-eventhub
           env:
-            - name: fint.audit.mongo.connection-string
-              valueFrom:
-                secretKeyRef:
-                  name: fint-audit
-                  key: mongodb
             - name: fint.hazelcast.kubernetes.enabled
               value: "true"
             - name: fint.hazelcast.kubernetes.namespace
