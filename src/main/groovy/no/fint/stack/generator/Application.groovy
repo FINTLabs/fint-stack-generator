@@ -43,8 +43,8 @@ class Application {
         Path output = outdir.resolve("${settings['stack']}${env(settings['environment'])}.yml")
         System.out.printf("Generating %s from %s ...\n", output, input)
 
-        stack['services']['provider']['ports'][0] = "${settings['port']}:8080".toString()
-        stack['services']['consumer']['ports'][0] = "${settings['port'] + 1}:8080".toString()
+        //stack['services']['provider']['ports'][0] = "${settings['port']}:8080".toString()
+        //stack['services']['consumer']['ports'][0] = "${settings['port'] + 1}:8080".toString()
 
         stack['services']['consumer']['environment']['server.context-path'] = settings['uri']
         stack['services']['provider']['environment']['server.context-path'] = "${settings['uri']}/provider".toString()
