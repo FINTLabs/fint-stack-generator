@@ -22,7 +22,7 @@ spec:
       restartPolicy: Always
       containers:
       - name: stacks-k8s
-        image: fintlabs.azurecr.io/stack-generator:1.0.0
+        image: fintlabs.azurecr.io/stack-generator:build.12
         ports:
           - containerPort: 8081
         readinessProbe:
@@ -30,7 +30,7 @@ spec:
           timeoutSeconds: 5
           httpGet:
             port: 8081
-            path: /stacks/k8s/health
+            path: /health
         resources:
           limits:
             memory: "512Mi"
@@ -40,6 +40,8 @@ spec:
             value: Europe/Oslo
           - name: JAVA_TOOL_OPTIONS
             value: "-XX:+ExitOnOutOfMemoryError -Xmx256m -verbose:gc"
+          - name: server.context-path
+            value: ""
           - name: server.port
             value: "8081"
           - name: fint.admin.uri

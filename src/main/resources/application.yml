@@ -2,11 +2,8 @@ fint:
   admin:
     uri: https://admin-beta.fintlabs.no
   stack:
-    type: Docker
+    type: Kubernetes
   registry:
     username: fintlabs
     password: password
     name: fintlabs.azurecr.io
-
-server:
-  context-path: /stacks
