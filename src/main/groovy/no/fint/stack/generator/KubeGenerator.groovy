@@ -39,6 +39,17 @@ class KubeGenerator implements Generator {
             }
             putenv(consumer, 'fint.consumer.default-org-id', 'pwf.no')
             putenv(consumer, 'fint.consumer.override-org-id','true')
+
+            consumer.spec.template.spec.containers.each {
+                it.resources.limits.cpu = '1'
+                it.resources.limits.memory = '512Mi'
+                it.resources.requests.memory = '512Mi'
+            }
+            provider.spec.template.spec.containers.each {
+                it.resources.limits.cpu = '1'
+                it.resources.limits.memory = '256Mi'
+                it.resources.requests.memory = '256Mi'
+            }
         }
 
         if (model.uri) {
