@@ -39,7 +39,7 @@ class HttpTestingSpec extends Specification {
     @Ignore // TODO Rewrite to get password from environment
     def "Fetch from Azure CR"() {
         given:
-        def api = 'https://fintlabs.azurecr.io/v2'
+        def api = 'https://fintlabsacr.azurecr.io/v2'
         def interceptor = new AuthenticatingRequestInterceptor('fintlabs', '')
         def resttemplate = new RestTemplateBuilder().additionalCustomizers(interceptor).build()
 

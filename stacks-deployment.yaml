@@ -22,7 +22,7 @@ spec:
       restartPolicy: Always
       containers:
       - name: stacks-k8s
-        image: fintlabs.azurecr.io/stack-generator:build.12
+        image: fintlabsacr.azurecr.io/stack-generator:build.16
         ports:
           - containerPort: 8081
         readinessProbe:

@@ -6,4 +6,4 @@ fint:
   registry:
     username: fintlabs
     password: password
-    name: fintlabs.azurecr.io
+    name: fintlabsacr.azurecr.io

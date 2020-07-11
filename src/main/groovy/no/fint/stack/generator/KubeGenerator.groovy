@@ -34,9 +34,7 @@ class KubeGenerator implements Generator {
         }
 
         if (model.environment == 'play-with-fint') {
-            stack.each { it.metadata.namespace = 'pwf' }
             stack.findAll { it.kind == 'Deployment' }.each {
-                setenv(it, 'fint.hazelcast.kubernetes.namespace', 'pwf')
                 putenv(it, 'fint.events.orgIds', 'health.fintlabs.no,pwf.no')
             }
             putenv(consumer, 'fint.consumer.default-org-id', 'pwf.no')

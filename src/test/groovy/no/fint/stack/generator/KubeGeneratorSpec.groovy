@@ -80,7 +80,7 @@ class KubeGeneratorSpec extends Specification {
                 environment: 'beta',
                 stack: 'utdanning-elev',
                 uri: '/utdanning/elev',
-                repository: 'fintlabs.azurecr.io',
+                repository: 'fintlabsacr.azurecr.io',
                 consumer: 'consumer-utdanning-elev',
                 version: '0.8.0-3.1.0',
                 provider: '2.0.1',
