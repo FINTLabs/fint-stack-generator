@@ -43,12 +43,14 @@ class KubeGenerator implements Generator {
             consumer.spec.template.spec.containers.each {
                 it.resources.limits.cpu = '1'
                 it.resources.limits.memory = '512Mi'
-                it.resources.requests.memory = '512Mi'
+                it.resources.requests.cpu = '100m'
+                it.resources.requests.memory = '128Mi'
             }
             provider.spec.template.spec.containers.each {
                 it.resources.limits.cpu = '1'
-                it.resources.limits.memory = '256Mi'
-                it.resources.requests.memory = '256Mi'
+                it.resources.limits.memory = '512Mi'
+                it.resources.requests.cpu = '100m'
+                it.resources.requests.memory = '128Mi'
             }
         }
 
