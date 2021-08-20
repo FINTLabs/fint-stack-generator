@@ -1,6 +1,6 @@
 package no.fint.stack.generator
 
-import io.kubernetes.client.JSON
+import io.kubernetes.client.openapi.JSON
 import io.kubernetes.client.util.Yaml
 import spock.lang.Specification
 

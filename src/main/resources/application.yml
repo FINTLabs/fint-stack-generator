@@ -1,9 +1,0 @@
-fint:
-  admin:
-    uri: https://admin-beta.fintlabs.no
-  stack:
-    type: Kubernetes
-  registry:
-    username: fintlabs
-    password: password
-    name: fintlabsacr.azurecr.io
