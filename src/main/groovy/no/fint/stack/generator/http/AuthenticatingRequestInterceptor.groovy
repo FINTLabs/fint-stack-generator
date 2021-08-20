@@ -26,7 +26,7 @@ class AuthenticatingRequestInterceptor implements ClientHttpRequestInterceptor, 
     AuthenticatingRequestInterceptor(String username, String password) {
         this.username = username
         this.password = password
-        restOperations = new RestTemplateBuilder().errorHandler(this).basicAuthorization(username, password).build()
+        restOperations = new RestTemplateBuilder().errorHandler(this).basicAuthentication(username, password).build()
     }
 
     @Override

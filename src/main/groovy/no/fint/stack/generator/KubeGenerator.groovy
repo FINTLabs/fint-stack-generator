@@ -1,8 +1,8 @@
 package no.fint.stack.generator
 
 
-import io.kubernetes.client.models.V1Deployment
-import io.kubernetes.client.models.V1EnvVar
+import io.kubernetes.client.openapi.models.V1Deployment
+import io.kubernetes.client.openapi.models.V1EnvVar
 import io.kubernetes.client.util.Yaml
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.stereotype.Service

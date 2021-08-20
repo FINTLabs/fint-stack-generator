@@ -1,50 +1,38 @@
-buildscript {
-    ext {
-        springBootVersion = '1.5.18.RELEASE'
-    }
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-    }
-}
-
 plugins {
-    id 'com.github.ben-manes.versions' version '0.20.0'
+    id 'org.springframework.boot' version '2.5.4'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'groovy'
 }
 
-apply plugin: 'groovy'
-apply plugin: 'eclipse'
-apply plugin: 'org.springframework.boot'
-
-group = 'no.fint'
-sourceCompatibility = 1.8
+group = 'no.fintlabs'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
 
 repositories {
     mavenCentral()
 }
 
-
 dependencies {
-    compile('org.springframework.boot:spring-boot-starter')
-    compile('org.springframework.boot:spring-boot-starter-web')
-    compile('org.springframework.boot:spring-boot-starter-thymeleaf')
-    compile('org.springframework.boot:spring-boot-actuator')
-    compile('org.codehaus.groovy:groovy')
-    compile('org.codehaus.groovy:groovy-json')
-    compile('io.kubernetes:client-java:4.0.0-beta1')
-
-    testCompile('org.spockframework:spock-spring:1.1-groovy-2.4')
-    testCompile('org.spockframework:spock-core:1.1-groovy-2.4')
-    testCompile('org.springframework.boot:spring-boot-starter-test')
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.codehaus.groovy:groovy'
+    implementation 'org.codehaus.groovy:groovy-json'
+    implementation 'io.kubernetes:client-java:13.0.0'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.spockframework:spock-spring:2.0-groovy-3.0'
 }
 
+test {
+    useJUnitPlatform()
+}
+
+
 task copyDependencies(type: Copy) {
-    from configurations.runtime
+    from configurations.runtimeClasspath
     into "$buildDir/deps"
     exclude '**/fint-*.jar'
 }
+
 
 build.dependsOn(copyDependencies)
 
@@ -55,9 +43,9 @@ jar {
                 "Main-Class": "no.fint.stack.generator.Application",
                 "Specification-Version": "${version}",
                 "Implementation-Version": "${version}",
-                "Class-Path": configurations.runtime.collect { it.getName() }.join(' ')
+                "Class-Path": configurations.runtimeClasspath.collect { it.getName() }.join(' ')
         )
     }
 }
 
-bootRepackage.enabled = false
+bootJar.enabled = false
