@@ -1,5 +1,5 @@
 FROM gradle:7.1.1-jdk11 as builder
-USER root
+WORKDIR /home/gradle/project
 COPY . .
 RUN gradle --no-daemon build
 
